@@ -11,6 +11,14 @@ Mobile-first trainingslogboek (single-file web app) voor een 10-weken Hyrox-prog
 - Gepubliceerde versie: private pagina op claude.ai (met cloud-opslag).
 - Lokaal: open `index.html` in een browser. Werkt volledig, maar slaat dan alleen op in die browser (localStorage).
 
+## Functies (v3)
+
+- Profielen (Netflix-stijl, zonder wachtwoord); alle data per profiel gescheiden. Bestaande data is gemigreerd naar profiel "Danny".
+- Trainingsblokken als data: aanmaken vanuit template (10 weken Hyrox, Push/Pull/Legs, leeg), week-editor met sessies per dag (cardio/conditie of krachttraining), trainingen-editor.
+- Importeren: tekst (ook dictatie), PDF, foto/screenshot, meerdere bestanden; AI zet het om naar een schema met preview. Geëxporteerde schema's (JSON-tekst) importeren zonder AI.
+- Delen tussen profielen: heel schema of losse training kopiëren naar een ander profiel, of als tekst exporteren.
+- Vandaag: overzicht van de dag bovenaan, daaronder de uitgewerkte sessies.
+
 ## Functies (v2)
 
 - Vandaag: programma-sessie + krachttraining inline, in-/uitklapbaar, live "volgende keer"-voorspelling per oefening, PR-melding per set.
