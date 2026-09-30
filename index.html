@@ -73,6 +73,9 @@ nav.tabs button.on{color:var(--accent)}
 /* session card */
 .sess{display:flex;flex-direction:column;gap:12px}
 .sess .lines{white-space:pre-line;color:var(--fg2);font-size:14px;line-height:1.5}
+.blocks{display:flex;flex-direction:column;gap:8px}
+.blk{background:var(--surface2);border-radius:10px;padding:10px 12px;font-size:15px;line-height:1.5;font-weight:500}
+.blk .bh{font-weight:800;color:var(--accent);margin-bottom:2px}
 .sess.done{border-color:rgba(22,227,110,.35)}
 .targets{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
 .t{background:var(--surface2);border-radius:var(--r-sm);padding:8px 10px}
@@ -630,7 +633,7 @@ function renderToday(){
     <div class="ring"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="27" stroke="var(--surface2)" stroke-width="6" fill="none"/><circle cx="32" cy="32" r="27" stroke="var(--accent)" stroke-width="6" fill="none" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C*(1-pct)}"/></svg><div class="lbl">${st.done}/${st.total}</div></div>
     <div class="stack grow" style="gap:2px"><div class="eyebrow">${t('onProgram')}</div><div style="font-size:15px;font-weight:700">${st.total?`${st.total} ${st.total===1?t('session'):t('sessions')} · ${estDayMinutes(k)} ${t('min')}`:t('rest')}</div></div>
     ${st.total?`<button class="iconbtn" data-share="day" aria-label="share">${ICONS.share}</button>`:''}</div>
-    ${st.total?`<div class="ov">${list.map(s=>{const done=isDone(k,s);if(s.kind==='cardio')return `<a href="#s${s.idx}" class="ovr"><span class="chip ${s.type}">${t(s.type)}</span><span class="grow"><b>${esc(s.title||firstLine(s.lines))}</b><div class="dim" style="font-size:12px">${[s.km!=null?num(s.km,1)+' km':'',s.rpe!=null?'RPE '+s.rpe:'',s.zone||''].filter(Boolean).join(' · ')}</div></span><span class="check ${done?'on':''}" style="width:22px;height:22px">${done?ICONS.check:''}</span></a>`;
+    ${st.total?`<div class="ov">${list.map(s=>{const done=isDone(k,s);if(s.kind==='cardio')return `<a href="#s${s.idx}" class="ovr"><span class="chip ${s.type}">${t(s.type)}</span><span class="grow"><b>${esc(cardioTitle(s))}</b><div class="dim" style="font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${[s.km!=null?num(s.km,1)+' km':'',s.rpe!=null?'RPE '+s.rpe:'',blocksOf(s.lines).map(b=>b[0]).join(' · ')].filter(Boolean).join(' · ')}</div></span><span class="check ${done?'on':''}" style="width:22px;height:22px">${done?ICONS.check:''}</span></a>`;
       const x=S.sessions[s.id];const tpl=p.templates[s.tpl];return `<a href="#s${s.idx}" class="ovr"><span class="chip gym">${t('gym')}</span><span class="grow"><b>${esc(tpl.name)}</b><div class="dim" style="font-size:12px">${tpl.ex.length} ${t('exercises')} · ${tpl.ex.reduce((a,e)=>a+e[1],0)} ${t('sets')}${s.extra?' · '+t('optional'):''}</div></span><span class="check ${done?'on':''}" style="width:22px;height:22px">${done?ICONS.check:''}</span></a>`}).join('')}</div>`:`<div class="muted">${t('restTxt')}</div>`}
   </div>`;
   // detail cards
@@ -640,19 +643,23 @@ function renderToday(){
   $('#main').innerHTML=h; bindToday();
 }
 const firstLine=s=>(s||'').split('\n').find(x=>x.trim())||'';
+const blocksOf=s=>(s||'').split(/\n\s*\n/).map(b=>b.split('\n').map(x=>x.trim()).filter(Boolean)).filter(b=>b.length);
+const isHead=(l,i,b)=>i===0&&b.length>1&&(/[:\-–]$/.test(l)||/^\d+\s*(min|x|×|rounds?|ronden?)\b/i.test(l)||/amrap|emom|rounds|min\b/i.test(l));
+const cardioTitle=s=>s.title||({hyrox:'Hyrox-sessie',run:'Trenara-run',bike:'Lange duur',other:'Conditie',race:'Race'})[s.type]||t(s.type);
+const blocksHtml=s=>blocksOf(s).map(b=>`<div class="blk">${b.map((l,i)=>isHead(l,i,b)?`<div class="bh">${esc(l)}</div>`:`<div>${esc(l)}</div>`).join('')}</div>`).join('');
 function estDayMinutes(k){let m=0;daySessions(k).forEach(s=>{if(s.kind==='cardio')m+=progMinutes(k,s);else{const tpl=prog().templates[s.tpl];m+=5+tpl.ex.reduce((a,e)=>a+e[1],0)*2.5}});return Math.round(m)}
 function cardioCard(k,s){
   const st=sessState(k,s.idx); const done=!!st.done; const cid='c'+s.idx; const col=!!S.collapsed[k+cid];
   return `<div class="card sess ${done?'done':''}" id="s${s.idx}">
     <div class="row between"><span class="chip ${s.type}">${t(s.type)}</span><div class="row"><button class="check ${done?'on':''}" data-toggle="${s.idx}" aria-label="${t('done')}">${ICONS.check}</button><button class="iconbtn" data-col="${k+cid}" style="width:36px;height:36px;transform:rotate(${col?'-90':'0'}deg)">${ICONS.chev}</button></div></div>
-    ${s.title?`<div style="font-size:18px;font-weight:800">${esc(s.title)}</div>`:''}
-    <div class="lines" ${col?'hidden':''}>${esc(s.lines)}</div>
+    <div style="font-size:20px;font-weight:800;letter-spacing:-.01em">${esc(cardioTitle(s))}</div>
+    <div class="blocks" ${col?'hidden':''}>${blocksHtml(s.lines)||`<div class="muted">–</div>`}</div>
     <div ${col?'hidden':''} class="stack" style="gap:12px">
       <div class="targets"><div class="t"><div class="k">${t('dist')}</div><div class="v">${s.km!=null?num(s.km,2):'–'}<small>km</small></div></div><div class="t"><div class="k">${t('rpe')}</div><div class="v">${s.rpe??'–'}</div></div><div class="t"><div class="k">${t('zone')}</div><div class="v" style="font-size:15px">${s.zone||'–'}</div></div></div>
       ${s.choice?.length?`<div class="field"><label>${t('choice')}</label><div class="seg">${s.choice.map(c=>`<button data-choice="${esc(c)}" data-si="${s.idx}" class="${st.choice===c?'on':''}">${esc(c)}</button>`).join('')}</div></div>`:''}
       <div class="grid2"><div class="field"><label>${t('dist')} (km)</label><input class="in" data-cf="dist" data-si="${s.idx}" type="number" inputmode="decimal" step="0.01" value="${st.dist??''}" placeholder="${s.km??''}"></div><div class="field"><label>${t('time')} (${t('min')})</label><input class="in" data-cf="time" data-si="${s.idx}" type="number" inputmode="numeric" value="${st.time??''}" placeholder="${progMinutes(k,s)}"></div></div>
       <div class="grid2"><div class="field"><label>${t('rpe')} (1-10)</label><input class="in" data-cf="rpe" data-si="${s.idx}" type="number" inputmode="decimal" min="1" max="10" step="0.5" value="${st.rpe??''}" placeholder="${s.rpe??''}"></div><div class="field"><label>${t('note')}</label><input class="in" data-cf="note" data-si="${s.idx}" type="text" value="${esc(st.note??'')}" placeholder="${t('notePh')}"></div></div>
-      <button class="btn ${done?'':'primary'} block" data-toggle="${s.idx}">${done?t('undo'):t('markDone')}</button>
+      <div class="row"><button class="btn ${done?'':'primary'} grow" data-toggle="${s.idx}">${done?t('undo'):t('markDone')}</button><button class="btn" data-share="c:${s.idx}">${ICONS.share} ${t('share')}</button></div>
     </div></div>`;
 }
 function gymCard(k,s){
@@ -766,7 +773,7 @@ function openAddExercise(defaultM,cb){
 /* ---------- SHARE (image + PDF) ---------- */
 function shareData(k,what){
   const d=parseKey(k), pl=planFor(d); const all=daySessions(k);
-  const items=what==='day'?all:all.filter(s=>s.id===what);
+  const items=what==='day'?all:what.startsWith('c:')?all.filter(s=>s.kind==='cardio'&&String(s.idx)===what.slice(2)):all.filter(s=>s.id===what);
   const sessions=items.filter(s=>s.kind==='gym').map(s=>{if(!S.sessions[s.id])S.sessions[s.id]=buildSession(k,s.tpl,s.id,s.extra);return S.sessions[s.id]});
   const cardio=items.filter(s=>s.kind==='cardio').map(s=>({...s,st:sessState(k,s.idx)}));
   return {k,d,pl,sessions,cardio};
@@ -790,7 +797,7 @@ function tilesFor(sess,mode){
 function drawShare(sd,mode){
   const W=1080,M=64,gap=24; const c=document.createElement('canvas'); const g=c.getContext('2d'); const p=prog();
   const F=(w,px)=>`${w} ${px}px Manrope, -apple-system, "Segoe UI", Roboto, sans-serif`; const acc='#16e36e'; const blocks=[]; let y=M+40+96+44+40;
-  sd.cardio.forEach(cs=>{const lines=(cs.lines||'').split('\n').filter(Boolean).slice(0,12);const hb=90+(cs.title?40:0)+lines.length*34+90;blocks.push({type:'cardio',y,h:hb,lines,cs});y+=hb+28});
+  sd.cardio.forEach(cs=>{const lines=(cs.lines||'').split('\n').filter(Boolean).slice(0,12);const hb=90+44+lines.length*34+90;blocks.push({type:'cardio',y,h:hb,lines,cs});y+=hb+28});
   sd.sessions.forEach(sx=>{const tiles=tilesFor(sx,mode);const rows=[];for(let i=0;i<tiles.length;i+=2){const a=tiles[i],b=tiles[i+1];rows.push({a,b,h:96+Math.max(a.rows.length,b?b.rows.length:0)*38+20})}const hb=80+rows.reduce((s,r)=>s+r.h+16,0)+(sx.done?100:30);blocks.push({type:'gym',y,h:hb,sx,rows});y+=hb+28});
   const H=Math.max(1080,y+M); c.width=W;c.height=H;
   g.fillStyle='#0a0c0f';g.fillRect(0,0,W,H);g.fillStyle=acc;g.fillRect(0,0,W,10);g.textBaseline='top';
@@ -800,8 +807,8 @@ function drawShare(sd,mode){
   const rr=(x,y,w,h,r,fill,stroke)=>{g.beginPath();g.roundRect(x,y,w,h,r);if(fill){g.fillStyle=fill;g.fill()}if(stroke){g.strokeStyle=stroke;g.lineWidth=2;g.stroke()}};
   const chip=(x,y,label,color)=>{g.font=F(800,22);const w=g.measureText(label).width+36;rr(x,y,w,44,22,'#1b2027');g.fillStyle=color;g.fillText(label,x+18,y+11);return w};
   blocks.forEach(b=>{rr(M,b.y,W-2*M,b.h,28,'#13171c','#252c35');
-    if(b.type==='cardio'){const cs=b.cs;const col={hyrox:acc,run:'#4da3ff',other:'#9aa5b1',bike:'#ffb340',race:acc}[cs.type]||acc;chip(M+32,b.y+28,t(cs.type).toUpperCase(),col);let ly=b.y+92;if(cs.title){g.fillStyle='#eef2f5';g.font=F(800,34);g.fillText(cs.title,M+32,ly);ly+=44}
-      g.fillStyle='#eef2f5';g.font=F(600,28);b.lines.forEach((l,i)=>g.fillText(l,M+32,ly+i*34));
+    if(b.type==='cardio'){const cs=b.cs;const col={hyrox:acc,run:'#4da3ff',other:'#9aa5b1',bike:'#ffb340',race:acc}[cs.type]||acc;chip(M+32,b.y+28,t(cs.type).toUpperCase(),col);let ly=b.y+92;g.fillStyle='#eef2f5';g.font=F(800,34);g.fillText(cardioTitle(cs),M+32,ly);ly+=44;
+      b.lines.forEach((l,i)=>{const hd=/[:\-–]$/.test(l)||/amrap|emom|rounds/i.test(l);g.fillStyle=hd?'#16e36e':'#eef2f5';g.font=F(hd?800:600,28);g.fillText(l,M+32,ly+i*34)});
       const st=cs.st;const stats=[[t('dist'),st.dist!=null?num(st.dist,2)+' km':cs.km!=null?num(cs.km,2)+' km':'–'],[t('time'),st.time!=null?st.time+' min':'–'],[t('rpe'),st.rpe??cs.rpe??'–']];const sy=b.y+b.h-70;stats.forEach(([kk,v],i)=>{const x=M+32+i*300;g.fillStyle='#5d6875';g.font=F(800,20);g.fillText(kk.toUpperCase(),x,sy);g.fillStyle='#eef2f5';g.font=F(800,36);g.fillText(String(v),x,sy+24)})}
     else{const sx=b.sx;chip(M+32,b.y+28,(sx.done?t('gym'):t('plan')).toUpperCase(),'#a78bfa');g.fillStyle='#eef2f5';g.font=F(800,40);g.fillText(tplName(sx.tpl),M+32+180,b.y+24);let ty=b.y+96;const tw=(W-2*M-64-gap)/2;
       b.rows.forEach(r=>{[r.a,r.b].forEach((tile,ci)=>{if(!tile)return;const x=M+32+ci*(tw+gap);rr(x,ty,tw,r.h,18,'#1b2027');g.fillStyle='#eef2f5';g.font=F(800,28);let name=tile.ex.n;while(g.measureText(name).width>tw-40-(tile.prTag?60:0)&&name.length>4)name=name.slice(0,-2)+'…';g.fillText(name,x+20,ty+18);if(tile.prTag){g.fillStyle=acc;g.font=F(800,20);g.fillText('PR',x+tw-50,ty+24)}g.fillStyle='#9aa5b1';g.font=F(700,20);g.fillText(t('mg.'+tile.ex.m).toUpperCase(),x+20,ty+56);
