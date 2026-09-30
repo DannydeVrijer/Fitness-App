@@ -244,7 +244,7 @@ const I18N = {
     taper:'Taperweek: krachttraining optioneel. Voeg toe via "Extra training".',
     gymNames:{t1:'Borst & triceps',t2:'Rug, biceps & core',t3:'Bovenlichaam'},
     mg:{chest:'Borst',back:'Rug',shoulders:'Schouders',biceps:'Biceps',triceps:'Triceps',legs:'Benen',core:'Core',glutes:'Billen'},
-    session:'sessie',onProgram:'Op het programma',upNext:'Eerstvolgende',next:'Volgende',inProgress:'Bezig',preferences:'Instellingen',showRpe:'RPE-kolom',showRpeHint:'Uit = 3 kolommen, sneller loggen. Progressie werkt dan op reps en gewicht.',on:'Aan',off:'Uit',logToday:'Log vandaag',bwHint:'Weeg je wekelijks; de grafiek en relatieve kracht (1RM ÷ lichaamsgewicht op het PR-bord) gebruiken dit.',bw:'lichaamsgewicht',beforeStart:'Dit schema is nog niet begonnen.',afterEnd:'Dit schema is afgelopen. Maak een nieuw trainingsblok onder Meer.',
+    session:'sessie',onProgram:'Op het programma',overview:'Overzicht',periods:{week:'Laatste week',month:'Laatste maand','3m':'3 maanden','6m':'6 maanden','12m':'12 maanden',all:'Totaal'},vsPrevPeriod:'t.o.v. de periode ervoor',avgPerWeek:'gem. per week',distribution:'Verdeling',estShort:'(geschat)',addPr:'PR toevoegen',otherPrs:'Overige PR\u2019s',manual:'handmatig',exercisePr:'Oefening',customPr:'Anders (tijd, afstand…)',value:'Waarde',date:'Datum',deletePrQ:'PR verwijderen?',upNext:'Eerstvolgende',next:'Volgende',inProgress:'Bezig',preferences:'Instellingen',showRpe:'RPE-kolom',showRpeHint:'Uit = 3 kolommen, sneller loggen. Progressie werkt dan op reps en gewicht.',on:'Aan',off:'Uit',logToday:'Log vandaag',bwHint:'Weeg je wekelijks; de grafiek en relatieve kracht (1RM ÷ lichaamsgewicht op het PR-bord) gebruiken dit.',bw:'lichaamsgewicht',beforeStart:'Dit schema is nog niet begonnen.',afterEnd:'Dit schema is afgelopen. Maak een nieuw trainingsblok onder Meer.',
     noProgram:'Nog geen trainingsblok',noProgramTxt:'Maak een schema vanuit een template, bouw er zelf een of importeer een bestaand schema.',newBlock:'Nieuw trainingsblok',
     welcome:'Welkom',createProfile:'Maak je profiel',name:'Naam',start:'Start',profiles:'Profielen',newProfile:'Nieuw profiel',active:'actief',deleteProfile:'Verwijder profiel',deleteProfileQ:'Profiel en alle data verwijderen? Dit kan niet ongedaan worden.',confirm:'Bevestig',switchProfile:'Wisselen',
     createProgram:'Trainingsschema aanmaken',createProgramDesc:'Vanuit een template of leeg; zelf sessies per dag plannen',importProgram:'Trainingsschema importeren',importProgramDesc:'Tekst, PDF, foto of screenshot; meerdere bestanden mogelijk',
@@ -293,7 +293,7 @@ const I18N = {
     taper:'Taper week: strength optional. Add via "Add extra session".',
     gymNames:{t1:'Chest & triceps',t2:'Back, biceps & core',t3:'Upper body'},
     mg:{chest:'Chest',back:'Back',shoulders:'Shoulders',biceps:'Biceps',triceps:'Triceps',legs:'Legs',core:'Core',glutes:'Glutes'},
-    session:'session',onProgram:'On the program',upNext:'Up next',next:'Next',inProgress:'In progress',preferences:'Settings',showRpe:'RPE column',showRpeHint:'Off = 3 columns, faster logging. Progression then uses reps and weight only.',on:'On',off:'Off',logToday:'Log today',bwHint:'Weigh in weekly; the chart and relative strength (1RM ÷ body weight on the PR board) use this.',bw:'body weight',beforeStart:'This plan has not started yet.',afterEnd:'This plan has ended. Create a new block under More.',
+    session:'session',onProgram:'On the program',overview:'Overview',periods:{week:'Last week',month:'Last month','3m':'3 months','6m':'6 months','12m':'12 months',all:'Total'},vsPrevPeriod:'vs previous period',avgPerWeek:'avg per week',distribution:'Distribution',estShort:'(est.)',addPr:'Add PR',otherPrs:'Other PRs',manual:'manual',exercisePr:'Exercise',customPr:'Other (time, distance…)',value:'Value',date:'Date',deletePrQ:'Delete PR?',upNext:'Up next',next:'Next',inProgress:'In progress',preferences:'Settings',showRpe:'RPE column',showRpeHint:'Off = 3 columns, faster logging. Progression then uses reps and weight only.',on:'On',off:'Off',logToday:'Log today',bwHint:'Weigh in weekly; the chart and relative strength (1RM ÷ body weight on the PR board) use this.',bw:'body weight',beforeStart:'This plan has not started yet.',afterEnd:'This plan has ended. Create a new block under More.',
     noProgram:'No training block yet',noProgramTxt:'Create a plan from a template, build your own or import an existing plan.',newBlock:'New training block',
     welcome:'Welcome',createProfile:'Create your profile',name:'Name',start:'Start',profiles:'Profiles',newProfile:'New profile',active:'active',deleteProfile:'Delete profile',deleteProfileQ:'Delete profile and all its data? This cannot be undone.',confirm:'Confirm',switchProfile:'Switch',
     createProgram:'Create training plan',createProgramDesc:'From a template or empty; plan sessions per day',importProgram:'Import training plan',importProgramDesc:'Text, PDF, photo or screenshot; multiple files allowed',
@@ -438,7 +438,7 @@ function buildEmpty(start,nWeeks=8){return {name:'',start,race:null,weeks:Array.
 const PROG_TEMPLATES=[{id:'hyrox',name:'10 weken Hyrox (Danny)',desc:'Hyrox + Trenara + 3 krachttrainingen, 21-09 → 28-11',build:buildHyrox},{id:'ppl',name:'Push / Pull / Legs',desc:'3 krachtdagen per week, 8 weken',build:s=>buildPPL(s,8)},{id:'empty',name:'Leeg',desc:'Zelf opbouwen, 8 weken',build:s=>buildEmpty(s,8)}];
 
 /* ===================== STATE & STORAGE ===================== */
-const S = {lang:'nl', view:'today', date:null, pid:null, profiles:{}, settingsAll:{}, programs:{}, days:{}, sessions:{}, db:null, dl:null, ai:null, aiLimits:null, storage:'local', statsEx:null, openWeek:null, fromSchema:false, collapsed:{}, statsTab:'recap', editor:null, importState:null};
+const S = {lang:'nl', view:'today', date:null, pid:null, profiles:{}, settingsAll:{}, programs:{}, days:{}, sessions:{}, db:null, dl:null, ai:null, aiLimits:null, storage:'local', statsEx:null, openWeek:null, fromSchema:false, collapsed:{}, statsTab:'overview', editor:null, importState:null};
 const LS='hyroxlog.v3', LS_OLD='hyroxlog.v1', LS_PID='hyroxlog.pid';
 const fmtKey = d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
 const parseKey = k=>{const [y,m,d]=k.split('-').map(Number);return new Date(y,m-1,d)};
@@ -573,7 +573,7 @@ function suggest(tplId,exId,base,date){
   return nextFrom(hit.e,base,inc);
 }
 const round=x=>Math.round(x*100)/100; const e1rm=(w,r)=>r>=1?w*(1+r/30):0;
-function bestBefore(exId,date){let bw=0,be=0;sessionList().filter(s=>s.done&&s.date<date).forEach(s=>s.exercises.filter(x=>x.ex===exId).forEach(x=>loggedSets(x).forEach(st=>{bw=Math.max(bw,st.w||0);be=Math.max(be,e1rm(st.w||0,st.r))})));return {bw,be}}
+function bestBefore(exId,date){let bw=0,be=0;(settings().manualPrs||[]).filter(m=>m.ex===exId&&m.date<date).forEach(m=>{bw=Math.max(bw,m.w||0);be=Math.max(be,e1rm(m.w||0,m.r))});sessionList().filter(s=>s.done&&s.date<date).forEach(s=>s.exercises.filter(x=>x.ex===exId).forEach(x=>loggedSets(x).forEach(st=>{bw=Math.max(bw,st.w||0);be=Math.max(be,e1rm(st.w||0,st.r))})));return {bw,be}}
 function buildSession(k,tplId,id,extra){
   const p=prog(); const tpl=p.templates[tplId]; const swaps=((settings().swaps||{})[p.id]||{})[tplId]||{};
   const exercises=tpl.ex.map(([exId,sets,reps,w],i)=>{const useEx=swaps[i]||exId;const base=swaps[i]?{sets,reps,w:null}:{sets,reps,w:w??null};const sg=suggest(tplId,useEx,base,k);
@@ -912,16 +912,110 @@ function renderSchema(){
 
 /* ---------- STATS ---------- */
 function renderStats(){
-  const p=prog(); if(!p){head(t('stats'),'');$('#main').innerHTML=noProgHtml();bindNoProg($('#main'));return}
-  head(t('stats'),raceLine()||p.name);
-  const tabs=[['recap',t('recap')],['muscles',t('muscles')],['load',t('loadTitle')],['prs',t('prBoard')],['ex',t('exercises').charAt(0).toUpperCase()+t('exercises').slice(1)]];
-  let h=`<div class="filters" style="margin:0 -16px;padding:0 16px 4px">${tabs.map(([id,l])=>`<button data-st="${id}" class="${S.statsTab===id?'on':''}">${l}</button>`).join('')}</div>`;
-  h+=({recap:statsRecap,muscles:statsMuscles,load:statsLoad,prs:statsPrs,ex:statsEx})[S.statsTab]();
+  const p=prog(); if(!p&&!Object.values(S.sessions).some(x=>x.pid===S.pid)){head(t('stats'),'');$('#main').innerHTML=noProgHtml();bindNoProg($('#main'));return}
+  head(t('stats'),raceLine()||p?.name||'');
+  S.period=S.period||'week';
+  const tabs=[['overview',t('overview')],['muscles',t('muscles')],['load',t('loadTitle')],['prs',t('prBoard')],['ex',t('exercises').charAt(0).toUpperCase()+t('exercises').slice(1)]];
+  let h=`<div class="filters" style="margin:0 -16px;padding:0 16px 2px">${tabs.map(([id,l])=>`<button data-st="${id}" class="${S.statsTab===id?'on':''}">${l}</button>`).join('')}</div>`;
+  h+=`<div class="filters" style="margin:0 -16px;padding:0 16px 4px">${PERIODS.map(id=>`<button data-pd="${id}" class="${S.period===id?'on':''}" style="background:${S.period===id?'var(--fg)':'transparent'};color:${S.period===id?'var(--bg)':'var(--fg2)'};border:1px solid var(--line2)">${t('periods.'+id)}</button>`).join('')}</div>`;
+  h+=({overview:statsOverview,muscles:statsMuscles,load:statsLoad,prs:statsPrs,ex:statsEx})[S.statsTab==='recap'?'overview':S.statsTab]();
   $('#main').innerHTML=h;
   $('#main').querySelectorAll('[data-st]').forEach(b=>b.onclick=()=>{S.statsTab=b.dataset.st;render()});
+  $('#main').querySelectorAll('[data-pd]').forEach(b=>b.onclick=()=>{S.period=b.dataset.pd;render()});
   const se=$('#stEx'); if(se) se.onchange=e=>{S.statsEx=e.target.value;render()};
   const sr=$('#main').querySelector('[data-sharerecap]'); if(sr) sr.onclick=()=>shareRecap(+sr.dataset.sharerecap);
+  const ap=$('#main').querySelector('[data-addpr]'); if(ap) ap.onclick=openAddPr;
+  $('#main').querySelectorAll('[data-delpr]').forEach(b=>b.onclick=()=>confirmSheet(t('deletePrQ'),()=>{const st=JSON.parse(JSON.stringify(settings()));st.manualPrs=(st.manualPrs||[]).filter(x=>x.id!==b.dataset.delpr);persist('settings',S.pid,st,0);render()}));
 }
+const PERIODS=['week','month','3m','6m','12m','all'];
+function periodRange(shift=0){const days={week:7,month:30,'3m':91,'6m':182,'12m':365}[S.period];const to=days?addDays(today(),-days*shift):today();const from=days?addDays(to,-days+1):null;return [from?fmtKey(from):null,fmtKey(to)]}
+function statsData(shift=0){ // all programs of this profile, within period
+  const [from,to]=periodRange(shift); const inR=d=>(!from||d>=from)&&d<=to;
+  const gym=Object.values(S.sessions).filter(x=>x&&x.pid===S.pid&&x.done&&inR(x.date)).sort((a,b)=>a.date<b.date?-1:1);
+  const cardio=[];
+  Object.entries(S.days).forEach(([k,doc])=>{if(!k.startsWith(S.pid+'__'))return;const [,progId,date]=k.split('__');if(!inR(date))return;const pr=S.programs[progKey(S.pid,progId)];if(!pr)return;const pl=planFor(parseKey(date),pr);if(!pl)return;const defs=(pr.weeks[pl.w-1].days[pl.dk]||[]);
+    Object.entries(doc.s||{}).forEach(([idx,st])=>{if(!st.done)return;const def=defs[+idx];if(!def||def.kind!=='cardio')return;const km=st.dist??def.km??0;const minutes=st.time||({hyrox:60,other:45,race:80,bike:60,run:km?Math.round(km*5.5):45}[def.type]||45);cardio.push({date,type:def.type,km,minutes,rpe:st.rpe??def.rpe??6})})});
+  const manual=(settings().manualPrs||[]).filter(x=>inR(x.date));
+  return {from,to,gym,cardio,manual};
+}
+function aggregate(d){const o={workouts:d.gym.length+d.cardio.length,gym:d.gym.length,vol:0,sets:0,km:0,minutes:0,load:0,rpeSum:0,rpeN:0,prs:d.manual.length};
+  d.gym.forEach(x=>{const m=gymMinutes(x),r=gymRpe(x);o.minutes+=m;o.load+=m*r;o.rpeSum+=r;o.rpeN++;o.prs+=x.prs||0;x.exercises.forEach(e=>loggedSets(e).forEach(st=>{o.vol+=(st.w||0)*st.r;o.sets++}))});
+  d.cardio.forEach(c=>{o.minutes+=c.minutes;o.load+=c.minutes*c.rpe;o.km+=c.km;o.rpeSum+=c.rpe;o.rpeN++});return o}
+function weekBuckets(d){ // group by Monday within period
+  const b={};const add=(date,fn)=>{const dt=parseKey(date);const mon=fmtKey(addDays(dt,-dayIdx(dt)));b[mon]=b[mon]||{mon,load:0,km:0,vol:0,sessions:0,sets:0,ms:{}};fn(b[mon])};
+  d.gym.forEach(x=>add(x.date,w=>{const m=gymMinutes(x);w.load+=m*gymRpe(x);w.sessions++;x.exercises.forEach(e=>{const ls=loggedSets(e);if(!ls.length)return;const g=exOf(e.ex).m;w.ms[g]=(w.ms[g]||0)+ls.length;w.sets+=ls.length;ls.forEach(st=>w.vol+=(st.w||0)*st.r)})}));
+  d.cardio.forEach(c=>add(c.date,w=>{w.load+=c.minutes*c.rpe;w.km+=c.km;w.sessions++}));
+  return Object.values(b).sort((a,b)=>a.mon<b.mon?-1:1);
+}
+function periodWeeks(d){if(!d.from){const all=[...d.gym.map(x=>x.date),...d.cardio.map(x=>x.date)];if(!all.length)return 1;const first=all.sort()[0];return Math.max(1,Math.ceil(((parseKey(d.to)-parseKey(first))/864e5+1)/7))}return Math.max(1,Math.round(((parseKey(d.to)-parseKey(d.from))/864e5+1)/7))}
+function statsOverview(){
+  const d=statsData(),a=aggregate(d); const prev=S.period!=='all'?aggregate(statsData(1)):null;
+  const tile=(k,v,unit,dl)=>`<div class="tile"><div class="k">${k}</div><div class="v">${v}<small>${unit||''}</small></div>${dl||''}</div>`;
+  let h=`<div class="eyebrow">${t('periods.'+S.period)}${d.from?` · ${dShort(d.from)} – ${dShort(d.to)}`:''}</div><div class="tiles">
+    ${tile(t('workouts'),a.workouts,'',prev&&delta(a.workouts,prev.workouts))}${tile(t('volume'),num(a.vol/1000,1),'t',prev&&delta(a.vol/1000,prev.vol/1000,v=>num(v,1)+' t'))}
+    ${tile(t('km'),num(a.km,1),'km',prev&&delta(a.km,prev.km,v=>num(v,1)))}${tile(t('time'),num(a.minutes/60,1),'u',prev&&delta(a.minutes/60,prev.minutes/60,v=>num(v,1)+' u'))}
+    ${tile(t('load'),num(a.load,0),'',prev&&delta(a.load,prev.load))}${tile(t('avgRpe'),a.rpeN?num(a.rpeSum/a.rpeN,1):'–','',prev&&prev.rpeN&&a.rpeN?delta(a.rpeSum/a.rpeN,prev.rpeSum/prev.rpeN,v=>num(v,1)):'')}
+    ${tile(t('sets'),a.sets,'',prev&&delta(a.sets,prev.sets))}${tile(t('prs'),a.prs,'',prev&&delta(a.prs,prev.prs))}</div>${prev?`<div class="dim" style="font-size:12px">${t('vsPrevPeriod')}</div>`:''}`;
+  if(S.period==='week'&&prog()) h+=statsRecap();
+  if(prog()) h+=overviewTiles();
+  return h;
+}
+function statsMuscles(){
+  const d=statsData(); const wks=periodWeeks(d); const tot={}; d.gym.forEach(x=>x.exercises.forEach(e=>{const n=loggedSets(e).length;if(!n)return;const g=exOf(e.ex).m;tot[g]=(tot[g]||0)+n}));
+  const keys=Object.keys(MG_RANGE).filter(k=>tot[k]); const sum=Object.values(tot).reduce((a,b)=>a+b,0);
+  let h=`<div class="card"><div class="eyebrow" style="margin-bottom:6px">${t('muscles')} · ${t('avgPerWeek')} · ${t('periods.'+S.period).toLowerCase()}</div>${keys.map(k=>mgBar(k,Math.round(tot[k]/wks*10)/10)).join('')||`<div class="muted">${t('noData')}</div>`}</div>`;
+  if(sum){const PAL=['#16e36e','#4da3ff','#a78bfa','#ffb340','#ff5c5c','#5dcaa5','#ed93b1','#9aa5b1'];const order=keys.sort((a,b)=>tot[b]-tot[a]);const bk=weekBuckets(d);
+    h+=`<div class="card"><div class="eyebrow" style="margin-bottom:8px">${t('distribution')} · ${sum} ${t('sets')}</div><div style="display:flex;height:14px;border-radius:7px;overflow:hidden;gap:2px">${order.map((k,i)=>`<span style="width:${tot[k]/sum*100}%;background:${PAL[i%8]}"></span>`).join('')}</div><div class="stack" style="gap:6px;margin-top:10px">${order.map((k,i)=>`<div class="row between" style="font-size:13px"><span class="row" style="gap:8px"><i style="width:10px;height:10px;border-radius:3px;background:${PAL[i%8]};display:inline-block"></i>${t('mg.'+k)}</span><span><b>${Math.round(tot[k]/sum*100)}%</b> <span class="dim">· ${tot[k]} ${t('sets')}${bk.length>1&&bk.length<=8?' · '+bk.map(w=>w.ms[k]||0).join(' / '):''}</span></span></div>`).join('')}</div></div>`}
+  return h+`<div class="dim" style="font-size:12px;padding:0 4px">${t('musclesNote')}</div>`;
+}
+function statsLoad(){
+  const d=statsData(); const bk=weekBuckets(d); if(!bk.length) return `<div class="card flat muted">${t('noData')}</div>`;
+  const a=aggregate(d); const vals=bk.map(b=>b.load); const cur=bk[bk.length-1]; const prev=bk.slice(-4,-1).filter(b=>b.load>0); const avg=prev.length?prev.reduce((x,b)=>x+b.load,0)/prev.length:0; const ratio=avg?cur.load/avg:0;
+  const shown=bk.slice(-16);
+  let h=`<div class="tiles"><div class="tile"><div class="k">${t('load')} · ${t('periods.'+S.period).toLowerCase()}</div><div class="v">${num(a.load,0)}</div></div><div class="tile"><div class="k">${t('time')}</div><div class="v">${num(a.minutes/60,1)}<small>u ${t('estShort')}</small></div></div></div>`;
+  h+=`<div class="card"><div class="eyebrow" style="margin-bottom:6px">${t('loadTitle')} · ${t('perWeek')}</div>${barChart(shown.map(b=>b.load),shown.map(b=>dShort(b.mon)))}<div class="dim" style="font-size:12px;margin-top:6px">${t('loadHint')}</div></div>`;
+  if(avg) h+=`<div class="card" style="border-color:${ratio>1.3?'rgba(255,179,64,.5)':'rgba(22,227,110,.35)'}"><b>${ratio>1.3?t('loadWarn'):t('loadOk')}</b><div class="muted" style="font-size:13px;margin-top:4px">${num(cur.load,0)} vs ${num(avg,0)} (×${num(ratio,2)})</div></div>`;
+  return h+`<div class="card"><div class="eyebrow" style="margin-bottom:4px">${t('history')}</div><div class="hist">${bk.slice().reverse().slice(0,26).map(b=>`<div class="r"><span><b>${t('week')} ${dShort(b.mon)}</b> <span class="dim">${b.sessions} ${t('sessions')}</span></span><span>${num(b.load,0)} <span class="dim">· ${num(b.km,1)} km · ${num(b.vol/1000,1)} t</span></span></div>`).join('')}</div></div>`;
+}
+function statsPrs(){
+  const d=statsData(); const rec={};
+  d.gym.forEach(s=>s.exercises.forEach(e=>{const ls=loggedSets(e);if(!ls.length)return;const r=rec[e.ex]||(rec[e.ex]={hw:0,hwr:0,hwd:'',e1:0,e1s:null,e1d:'',vol:0,vold:'',n:0});let v=0;ls.forEach(st=>{v+=(st.w||0)*st.r;if((st.w||0)>r.hw||((st.w||0)===r.hw&&st.r>r.hwr)){r.hw=st.w||0;r.hwr=st.r;r.hwd=s.date}const ee=e1rm(st.w||0,st.r);if(ee>r.e1){r.e1=ee;r.e1s=st;r.e1d=s.date}});if(v>r.vol){r.vol=v;r.vold=s.date}r.n++}));
+  d.manual.filter(x=>x.ex).forEach(m=>{const r=rec[m.ex]||(rec[m.ex]={hw:0,hwr:0,hwd:'',e1:0,e1s:null,e1d:'',vol:0,vold:'',n:0});if(m.w>r.hw||(m.w===r.hw&&m.r>r.hwr)){r.hw=m.w;r.hwr=m.r;r.hwd=m.date;r.hwm=true}const ee=e1rm(m.w,m.r);if(ee>r.e1){r.e1=ee;r.e1s={w:m.w,r:m.r};r.e1d=m.date;r.e1m=true}});
+  const custom=d.manual.filter(x=>!x.ex).sort((a,b)=>a.date<b.date?1:-1);
+  const keys=Object.keys(rec).sort((a,b)=>rec[b].e1-rec[a].e1);
+  let h=`<button class="btn primary block" data-addpr>${ICONS.plus} ${t('addPr')}</button>`;
+  if(custom.length) h+=`<div class="card stack" style="gap:6px"><div class="eyebrow">${t('otherPrs')}</div>${custom.map(m=>`<div class="row between" style="font-size:14px"><span><b>${esc(m.name)}</b> <span class="dim">· ${dShort(m.date)}</span></span><span class="row" style="gap:6px"><b style="color:var(--accent)">${esc(m.value)}</b><button class="btn sm ghost danger" data-delpr="${m.id}" style="min-height:28px;padding:2px 8px">×</button></span></div>`).join('')}</div>`;
+  if(!keys.length) return h+`<div class="card flat muted">${t('noPrs')}</div>`;
+  const manualById=id=>d.manual.filter(x=>x.ex===id);
+  return h+keys.map(k=>{const r=rec[k];const ex=exOf(k);const mans=manualById(k);return `<div class="card stack" style="gap:8px"><div class="row between"><div><b style="font-size:16px">${esc(ex.n)}</b><div class="dim" style="font-size:12px">${t('mg.'+ex.m)} · ${r.n} ${t('sessions')}${mans.length?` · ${mans.length} ${t('manual')}`:''}</div></div>${ex.inc!==0?`<div style="text-align:right"><div class="eyebrow">1RM</div><div class="num" style="font-size:22px;color:var(--accent)">${num(r.e1,0)}<small style="font-size:11px;color:var(--fg2)"> kg</small></div>${curBw()?`<div class="dim" style="font-size:11px">${num(r.e1/curBw(),2)}× ${t('bw')}</div>`:''}</div>`:''}</div><div class="targets"><div class="t"><div class="k">${t('heaviest')}</div><div class="v" style="font-size:15px">${ex.inc===0?'BW':num(r.hw,1)+' kg'} × ${r.hwr}</div><div class="dim" style="font-size:11px">${dShort(r.hwd)}${r.hwm?' ✎':''}</div></div><div class="t"><div class="k">${t('best')} 1RM</div><div class="v" style="font-size:15px">${r.e1s?(ex.inc===0?'BW':num(r.e1s.w,1)+' kg')+' × '+r.e1s.r:'–'}</div><div class="dim" style="font-size:11px">${dShort(r.e1d)}${r.e1m?' ✎':''}</div></div><div class="t"><div class="k">${t('bestVol')}</div><div class="v" style="font-size:15px">${r.vol?num(r.vol,0)+' kg':'–'}</div><div class="dim" style="font-size:11px">${r.vold?dShort(r.vold):''}</div></div></div>${mans.length?`<div class="stack" style="gap:4px">${mans.map(m=>`<div class="row between dim" style="font-size:12px"><span>✎ ${dShort(m.date)} · ${num(m.w,1)} kg × ${m.r}${m.note?' · '+esc(m.note):''}</span><button class="btn sm ghost danger" data-delpr="${m.id}" style="min-height:24px;padding:0 8px">×</button></div>`).join('')}</div>`:''}</div>`}).join('');
+}
+function openAddPr(){
+  let kind='ex', exId=null;
+  const body=()=>`<div class="eyebrow">${t('addPr')}</div><div class="seg"><button data-k="ex" class="${kind==='ex'?'on':''}">${t('exercisePr')}</button><button data-k="custom" class="${kind==='custom'?'on':''}">${t('customPr')}</button></div>
+    ${kind==='ex'?`<div class="field"><label>${t('exName')}</label><button class="btn block" data-pickex style="justify-content:flex-start">${exId?esc(exOf(exId).n):t('pickEx')}</button></div><div class="grid2"><div class="field"><label>kg</label><input class="in" id="prW" type="number" inputmode="decimal" step="0.5"></div><div class="field"><label>${t('reps')}</label><input class="in" id="prR" type="number" inputmode="numeric" value="1"></div></div>`
+    :`<div class="field"><label>${t('name')}</label><input class="in" id="prName" placeholder="Hyrox Amsterdam"></div><div class="field"><label>${t('value')}</label><input class="in" id="prVal" placeholder="1:12:30"></div>`}
+    <div class="grid2"><div class="field"><label>${t('date')}</label><input class="in" id="prDate" type="date" value="${fmtKey(today())}"></div><div class="field"><label>${t('note')}</label><input class="in" id="prNote" placeholder="${t('optional')}"></div></div>
+    <div style="font-size:13px;color:var(--danger)" id="prErr" hidden></div><button class="btn primary block" data-save>${t('save')}</button>`;
+  const bind=sh=>{
+    sh.querySelectorAll('[data-k]').forEach(b=>b.onclick=()=>{kind=b.dataset.k;sh.querySelector('.body').innerHTML=body();bind(sh)});
+    const pk=sh.querySelector('[data-pickex]'); if(pk) pk.onclick=()=>openExercisePicker({title:t('pickEx')},nid=>{exId=nid;openSheet(body(),bind)});
+    sh.querySelector('[data-save]').onclick=()=>{const v=id=>sh.querySelector(id)?.value;const err=m=>{const e=sh.querySelector('#prErr');e.textContent=m;e.hidden=false};const date=v('#prDate')||fmtKey(today());const st=JSON.parse(JSON.stringify(settings()));st.manualPrs=st.manualPrs||[];
+      if(kind==='ex'){if(!exId)return err(t('pickEx'));const w=+v('#prW'),r=+v('#prR')||1;if(!w&&exOf(exId).inc!==0)return err('kg');st.manualPrs.push({id:'pr_'+uid(),ex:exId,w:w||0,r,date,note:v('#prNote')||''})}
+      else{const name=(v('#prName')||'').trim(),val=(v('#prVal')||'').trim();if(!name||!val)return err(t('name')+' + '+t('value'));st.manualPrs.push({id:'pr_'+uid(),name,value:val,date,note:v('#prNote')||''})}
+      persist('settings',S.pid,st,0);closeSheet();render();toast(t('saved'))};
+  };
+  openSheet(body(),bind);
+}
+function statsEx(){
+  const d=statsData(); const exIds=[...new Set(d.gym.flatMap(s=>s.exercises.filter(e=>loggedSets(e).length).map(e=>e.ex)))];
+  if(!exIds.length) return `<div class="card flat muted">${t('noData')}</div>`; if(!S.statsEx||!exIds.includes(S.statsEx)) S.statsEx=exIds[0];
+  let h=`<div class="field"><label>${t('pickEx')}</label><select class="in" id="stEx">${exIds.map(id=>`<option value="${id}" ${id===S.statsEx?'selected':''}>${esc(exOf(id).n)}</option>`).join('')}</select></div>`;
+  const pts=[]; d.gym.forEach(s=>s.exercises.filter(e=>e.ex===S.statsEx).forEach(e=>{const ls=loggedSets(e);if(!ls.length)return;let mw=0,me=0,vol=0,bs=null;ls.forEach(x=>{vol+=(x.w||0)*x.r;const ee=e1rm(x.w||0,x.r);if(ee>me){me=ee;bs=x}if((x.w||0)>mw)mw=x.w||0});pts.push({date:s.date,mw,me,vol,bs,tpl:s.tpl,prog:s.prog})}));
+  const maxE=Math.max(...pts.map(p=>p.me)),maxW=Math.max(...pts.map(p=>p.mw));
+  h+=`<div class="tiles"><div class="tile"><div class="k">${t('e1rm')} ${t('pr')}</div><div class="v">${num(maxE,0)}<small>kg</small></div></div><div class="tile"><div class="k">${t('best')}</div><div class="v">${num(maxW,1)}<small>kg</small></div></div></div><div class="card"><div class="eyebrow" style="margin-bottom:6px">${t('e1rm')}</div>${lineChart(pts.map(p=>p.me),pts.map(p=>p.date))}</div>`;
+  return h+`<div class="card"><div class="eyebrow" style="margin-bottom:4px">${t('history')}</div><div class="hist">${pts.slice().reverse().map(p=>`<div class="r"><span><b>${dShort(p.date)}</b> <span class="dim">${esc(S.programs[progKey(S.pid,p.prog)]?.templates[p.tpl]?.name||p.tpl)}</span></span><span>${p.bs?`${num(p.bs.w,1)}×${p.bs.r}`:''} <span class="dim">· ${num(p.vol,0)} kg</span></span></div>`).join('')}</div></div>`;
+}
+
 function delta(a,b,fmt=v=>num(v,0)){if(!b&&!a)return '';const d=a-b;const s=d>0?'+':'';return `<span style="color:${d>0?'var(--accent)':d<0?'var(--danger)':'var(--fg3)'};font-size:12px;font-weight:700">${s}${fmt(d)}</span>`}
 function curWeek(){const p=prog();const pl=planFor(today());return pl?pl.w:(today()<parseKey(p.start)?0:p.weeks.length)}
 function statsRecap(){
@@ -945,39 +1039,7 @@ function overviewTiles(){
 }
 function mgBar(k,n){const [lo,hi]=MG_RANGE[k];const st=n<lo?'low':n>hi?'high':'ok';const col={low:'var(--warn)',ok:'var(--accent)',high:'var(--danger)'}[st];const pct=Math.min(100,n/(hi*1.15)*100),loP=lo/(hi*1.15)*100,hiP=hi/(hi*1.15)*100;
   return `<div class="stack" style="gap:4px;padding:6px 0"><div class="row between"><b style="font-size:14px">${t('mg.'+k)}</b><span style="font-size:13px"><b>${n}</b> <span class="dim">${t('setsWeek')}</span> · <span style="color:${col};font-weight:700">${t(st)}</span></span></div><div class="bar" style="position:relative;height:8px"><i style="width:${pct}%;background:${col}"></i><span style="position:absolute;left:${loP}%;top:-2px;width:2px;height:12px;background:var(--fg2)"></span><span style="position:absolute;left:${hiP}%;top:-2px;width:2px;height:12px;background:var(--fg2)"></span></div><div class="dim" style="font-size:11px">${t('guide')}: ${lo}–${hi} ${t('setsWeek')}</div></div>`}
-function statsMuscles(){
-  const cw=curWeek(); const ms=cw>=1?muscleSets(cw):{}; const keys=Object.keys(MG_RANGE);
-  let h=`<div class="card"><div class="eyebrow" style="margin-bottom:6px">${t('muscles')} · ${t('thisWeek')}</div>${keys.filter(k=>ms[k]).map(k=>mgBar(k,ms[k])).join('')||`<div class="muted">${t('noData')}</div>`}</div>`;
-  const weeks=[]; for(let w=Math.max(1,cw-3);w<=Math.min(cw,prog().weeks.length);w++)weeks.push({w,ms:muscleSets(w)});
-  const tot={}; weeks.forEach(x=>Object.entries(x.ms).forEach(([k,v])=>tot[k]=(tot[k]||0)+v)); const sum=Object.values(tot).reduce((a,b)=>a+b,0); const PAL=['#16e36e','#4da3ff','#a78bfa','#ffb340','#ff5c5c','#5dcaa5','#ed93b1','#9aa5b1'];
-  if(sum){const order=keys.filter(k=>tot[k]).sort((a,b)=>tot[b]-tot[a]);h+=`<div class="card"><div class="eyebrow" style="margin-bottom:8px">${t('trend4')} · ${sum} ${t('sets')}</div><div style="display:flex;height:14px;border-radius:7px;overflow:hidden;gap:2px">${order.map((k,i)=>`<span style="width:${tot[k]/sum*100}%;background:${PAL[i%8]}"></span>`).join('')}</div><div class="stack" style="gap:6px;margin-top:10px">${order.map((k,i)=>`<div class="row between" style="font-size:13px"><span class="row" style="gap:8px"><i style="width:10px;height:10px;border-radius:3px;background:${PAL[i%8]};display:inline-block"></i>${t('mg.'+k)}</span><span><b>${Math.round(tot[k]/sum*100)}%</b> <span class="dim">· ${weeks.map(x=>x.ms[k]||0).join(' / ')}</span></span></div>`).join('')}</div><div class="dim" style="font-size:11px;margin-top:8px">${t('week')} ${weeks.map(x=>x.w).join(' / ')}</div></div>`}
-  return h+`<div class="dim" style="font-size:12px;padding:0 4px">${t('musclesNote')}</div>`;
-}
-function statsLoad(){
-  const cw=Math.min(prog().weeks.length,curWeek()); if(cw<1) return `<div class="card flat muted">${t('noData')}</div>`;
-  const rows=[]; for(let w=1;w<=cw;w++)rows.push({w,...weekLoad(w)}); const vals=rows.map(r=>r.load); const cur=rows[rows.length-1];
-  const prev=rows.slice(-4,-1).filter(r=>r.load>0); const avg=prev.length?prev.reduce((a,r)=>a+r.load,0)/prev.length:0; const ratio=avg?cur.load/avg:0;
-  let h=`<div class="tiles"><div class="tile"><div class="k">${t('load')} ${t('thisWeek')}</div><div class="v">${num(cur.load,0)}</div></div><div class="tile"><div class="k">${t('time')} ${t('thisWeek')}</div><div class="v">${num(cur.minutes,0)}<small>${t('minutesEst')}</small></div></div></div>`;
-  h+=`<div class="card"><div class="eyebrow" style="margin-bottom:6px">${t('loadTitle')} · ${t('perWeek')}</div>${barChart(vals,rows.map(r=>'W'+r.w))}<div class="dim" style="font-size:12px;margin-top:6px">${t('loadHint')}</div></div>`;
-  if(avg) h+=`<div class="card" style="border-color:${ratio>1.3?'rgba(255,179,64,.5)':'rgba(22,227,110,.35)'}"><b>${ratio>1.3?t('loadWarn'):t('loadOk')}</b><div class="muted" style="font-size:13px;margin-top:4px">${num(cur.load,0)} vs ${num(avg,0)} (×${num(ratio,2)})</div></div>`;
-  return h+`<div class="card"><div class="eyebrow" style="margin-bottom:4px">${t('history')}</div><div class="hist">${rows.slice().reverse().map(r=>`<div class="r"><span><b>${t('week')} ${r.w}</b> <span class="dim">${r.sessions} ${t('sessions')}</span></span><span>${num(r.load,0)} <span class="dim">· ${num(r.km,1)} km · ${num(r.vol/1000,1)} t</span></span></div>`).join('')}</div></div>`;
-}
 function barChart(vals,labels){const W=340,H=140,px=6,py=18;const n=vals.length;const max=Math.max(...vals,1);const bw=(W-2*px)/n;return `<svg class="chart" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img">${vals.map((v,i)=>{const h=(H-py-20)*v/max;const x=px+i*bw+bw*0.15;const y=H-20-h;return `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${(bw*0.7).toFixed(1)}" height="${h.toFixed(1)}" rx="4" fill="${i===n-1?'var(--accent)':'var(--surface2)'}"/><text x="${(x+bw*0.35).toFixed(1)}" y="${(y-4).toFixed(1)}" text-anchor="middle" font-size="10" fill="var(--fg2)" font-family="inherit">${v?Math.round(v):''}</text><text x="${(x+bw*0.35).toFixed(1)}" y="${H-6}" text-anchor="middle" font-size="10" fill="var(--fg3)" font-family="inherit">${labels[i]}</text>`}).join('')}</svg>`}
-function statsPrs(){
-  const sl=sessionList().filter(s=>s.done); const rec={};
-  sl.forEach(s=>s.exercises.forEach(e=>{const ls=loggedSets(e);if(!ls.length)return;const r=rec[e.ex]||(rec[e.ex]={hw:0,hwr:0,hwd:'',e1:0,e1s:null,e1d:'',vol:0,vold:'',n:0});let v=0;ls.forEach(st=>{v+=(st.w||0)*st.r;if((st.w||0)>r.hw||((st.w||0)===r.hw&&st.r>r.hwr)){r.hw=st.w||0;r.hwr=st.r;r.hwd=s.date}const ee=e1rm(st.w||0,st.r);if(ee>r.e1){r.e1=ee;r.e1s=st;r.e1d=s.date}});if(v>r.vol){r.vol=v;r.vold=s.date}r.n++}));
-  const keys=Object.keys(rec).sort((a,b)=>rec[b].e1-rec[a].e1); if(!keys.length) return `<div class="card flat muted">${t('noPrs')}</div>`;
-  return keys.map(k=>{const r=rec[k];const ex=exOf(k);return `<div class="card stack" style="gap:8px"><div class="row between"><div><b style="font-size:16px">${esc(ex.n)}</b><div class="dim" style="font-size:12px">${t('mg.'+ex.m)} · ${r.n} ${t('sessions')}</div></div>${ex.inc!==0?`<div style="text-align:right"><div class="eyebrow">1RM</div><div class="num" style="font-size:22px;color:var(--accent)">${num(r.e1,0)}<small style="font-size:11px;color:var(--fg2)"> kg</small></div>${curBw()?`<div class="dim" style="font-size:11px">${num(r.e1/curBw(),2)}× ${t('bw')}</div>`:''}</div>`:''}</div><div class="targets"><div class="t"><div class="k">${t('heaviest')}</div><div class="v" style="font-size:15px">${ex.inc===0?'BW':num(r.hw,1)+' kg'} × ${r.hwr}</div><div class="dim" style="font-size:11px">${dShort(r.hwd)}</div></div><div class="t"><div class="k">${t('best')} 1RM</div><div class="v" style="font-size:15px">${r.e1s?(ex.inc===0?'BW':num(r.e1s.w,1)+' kg')+' × '+r.e1s.r:'–'}</div><div class="dim" style="font-size:11px">${dShort(r.e1d)}</div></div><div class="t"><div class="k">${t('bestVol')}</div><div class="v" style="font-size:15px">${num(r.vol,0)} kg</div><div class="dim" style="font-size:11px">${dShort(r.vold)}</div></div></div></div>`}).join('');
-}
-function statsEx(){
-  const sl=sessionList().filter(s=>s.done); const exIds=[...new Set(sl.flatMap(s=>s.exercises.filter(e=>loggedSets(e).length).map(e=>e.ex)))];
-  if(!exIds.length) return `<div class="card flat muted">${t('noData')}</div>`; if(!S.statsEx||!exIds.includes(S.statsEx)) S.statsEx=exIds[0];
-  let h=`<div class="field"><label>${t('pickEx')}</label><select class="in" id="stEx">${exIds.map(id=>`<option value="${id}" ${id===S.statsEx?'selected':''}>${esc(exOf(id).n)}</option>`).join('')}</select></div>`;
-  const pts=[]; sl.forEach(s=>s.exercises.filter(e=>e.ex===S.statsEx).forEach(e=>{const ls=loggedSets(e);if(!ls.length)return;let mw=0,me=0,vol=0,bs=null;ls.forEach(x=>{vol+=(x.w||0)*x.r;const ee=e1rm(x.w||0,x.r);if(ee>me){me=ee;bs=x}if((x.w||0)>mw)mw=x.w||0});pts.push({date:s.date,mw,me,vol,bs,tpl:s.tpl})}));
-  const maxE=Math.max(...pts.map(p=>p.me)),maxW=Math.max(...pts.map(p=>p.mw));
-  h+=`<div class="tiles"><div class="tile"><div class="k">${t('e1rm')} ${t('pr')}</div><div class="v">${num(maxE,0)}<small>kg</small></div></div><div class="tile"><div class="k">${t('best')}</div><div class="v">${num(maxW,1)}<small>kg</small></div></div></div><div class="card"><div class="eyebrow" style="margin-bottom:6px">${t('e1rm')}</div>${lineChart(pts.map(p=>p.me),pts.map(p=>p.date))}</div>`;
-  return h+`<div class="card"><div class="eyebrow" style="margin-bottom:4px">${t('history')}</div><div class="hist">${pts.slice().reverse().map(p=>`<div class="r"><span><b>${dShort(p.date)}</b> <span class="dim">${esc(tplName(p.tpl))}</span></span><span>${p.bs?`${num(p.bs.w,1)}×${p.bs.r}`:''} <span class="dim">· ${num(p.vol,0)} kg</span></span></div>`).join('')}</div></div>`;
-}
 function lineChart(vals,labels){const W=340,H=150,px=28,py=14;const n=vals.length;if(n<2)return `<div class="dim" style="font-size:12px;padding:8px 0">${n===1?`${num(vals[0],0)} kg`:t('noData')}</div>`;const min=Math.min(...vals)*0.95,max=Math.max(...vals)*1.03||1;const x=i=>px+(W-px-10)*(i/(n-1)),y=v=>py+(H-py*2)*(1-(v-min)/(max-min||1));const pts=vals.map((v,i)=>`${x(i).toFixed(1)},${y(v).toFixed(1)}`);const area=`M${pts[0]} L${pts.join(' L')} L${x(n-1).toFixed(1)},${H-py} L${x(0).toFixed(1)},${H-py} Z`;
   return `<svg class="chart" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img">${[min,(min+max)/2,max].map(v=>`<line x1="${px}" x2="${W-10}" y1="${y(v).toFixed(1)}" y2="${y(v).toFixed(1)}" stroke="var(--line)"/><text x="${px-4}" y="${(y(v)+4).toFixed(1)}" text-anchor="end" font-size="10" fill="var(--fg3)" font-family="inherit">${Math.round(v)}</text>`).join('')}<path d="${area}" fill="rgba(22,227,110,.12)"/><polyline points="${pts.join(' ')}" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linejoin="round"/>${vals.map((v,i)=>`<circle cx="${x(i).toFixed(1)}" cy="${y(v).toFixed(1)}" r="${i===n-1?4.5:3}" fill="${i===n-1?'var(--accent)':'var(--bg)'}" stroke="var(--accent)" stroke-width="2"/>`).join('')}<text x="${x(0).toFixed(1)}" y="${H-1}" font-size="10" fill="var(--fg3)" font-family="inherit">${dShort(labels[0])}</text><text x="${x(n-1).toFixed(1)}" y="${H-1}" font-size="10" fill="var(--fg3)" text-anchor="end" font-family="inherit">${dShort(labels[n-1])}</text></svg>`}
 function shareRecap(w){
