@@ -11,6 +11,19 @@ Mobile-first trainingslogboek (single-file web app) voor een 10-weken Hyrox-prog
 - Gepubliceerde versie: private pagina op claude.ai (met cloud-opslag).
 - Lokaal: open `index.html` in een browser. Werkt volledig, maar slaat dan alleen op in die browser (localStorage).
 
+## Functies (v5)
+
+- Home-tab: begroeting, training van vandaag, volgende training, aanbevelingen (regelgebaseerd), weekvoortgang en drie discipline-hubs (🏃 Hardlopen, 🏋️ Kracht, 🔥 HYROX/workouts) met eigen statistieken per periode.
+- Looptrainingen: looptype (duurloop, interval, tempo, threshold, fartlek, herstel), doeltempo, intervalstructuur (warming-up, herhalingen, hard/herstel, tempo); loggen van afstand, tijd, hartslag; tempo wordt berekend.
+- HYROX/workouts: builder met format (AMRAP, EMOM, For time, Rounds, Intervals, Circuit), onderdelen uit de Hyrox-bibliotheek; loggen van resultaat, rondes, splits.
+- Onboarding-wizard (doel → disciplines → dagen per week → aanbevolen schema); ook later te starten via Meer → Advies-wizard. Extra templates: Upper/Lower, Hardlopen 3×/week, Hybride.
+- Garmin: "Kopieer voor Garmin" en experimenteel versturen naar Intervals.icu (Athlete ID + API key bij Instellingen; alleen in de openbare versie).
+
+## Functies (v4)
+
+- Vooringevulde doelen als voorbeeldtekst; hele oefening/hele workout afvinken; keuze progressie per oefening bij afronden; rust/RIR/progressie in de trainingen-editor.
+- Delen via het systeem-deelmenu (WhatsApp), deel-links die een ander kan importeren, losse oefening op dagniveau.
+
 ## Functies (v3)
 
 - Profielen (Netflix-stijl, zonder wachtwoord); alle data per profiel gescheiden. Bestaande data is gemigreerd naar profiel "Danny".
