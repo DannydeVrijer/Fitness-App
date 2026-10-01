@@ -114,6 +114,8 @@ textarea.in{min-height:64px;resize:vertical;font-weight:500}
 .sets .ok{width:40px;height:44px;border-radius:10px;border:1px solid var(--line2);display:inline-flex;align-items:center;justify-content:center;color:var(--fg3)}
 .sets .ok.on{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
 .sets .ok svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.btn.wa{background:#25D366;color:#06130a;border-color:#25D366;text-decoration:none}
+.pchip{font-size:12px;font-weight:700;padding:5px 10px;border-radius:999px;background:var(--surface2);color:var(--fg2);border:1px solid var(--line)}.pchip.on{background:var(--accent);color:#06130a;border-color:var(--accent)}
 .prevline{font-size:12px;color:var(--fg3)}
 .prevline b{color:var(--fg2);font-weight:700}
 .exactions{display:flex;gap:8px;flex-wrap:wrap}
@@ -231,7 +233,7 @@ const RACE = new Date(2026, 10, 28);
 const DAYS = ['mon','tue','wed','thu','fri','sat','sun'];
 
 const I18N = {
-  nl:{close:'Sluiten',home:'Home',today:'Vandaag',schema:'Schema',stats:'Stats',settings:'Meer',week:'Week',day:'Dag',days:'dagen',
+  nl:{close:'Sluiten',customExH:'Eigen oefeningen',pg:{weight:'Gewicht omhoog',reps:'Reps omhoog',hold:'Niet aanpassen'},shareNativeHint:'Opent het deelmenu van je telefoon met afbeelding + link (WhatsApp, AirDrop, …).',shareWa:'WhatsApp: tekst + link',shareFallback:'Delen niet mogelijk hier; afbeelding gemaakt',discSplit:'Verdeling kracht / hardlopen / HYROX',hyroxStations:'HYROX-onderdelen getraind',notTrained:'Nog niet getraind',home:'Home',today:'Vandaag',schema:'Schema',stats:'Stats',settings:'Meer',week:'Week',day:'Dag',days:'dagen',
     mon:'Ma',tue:'Di',wed:'Wo',thu:'Do',fri:'Vr',sat:'Za',sun:'Zo',
     monL:'Maandag',tueL:'Dinsdag',wedL:'Woensdag',thuL:'Donderdag',friL:'Vrijdag',satL:'Zaterdag',sunL:'Zondag',
     rest:'Rustdag',restTxt:'Geen training gepland. Herstel is ook trainen.',
@@ -258,7 +260,7 @@ const I18N = {
     discRun:'Hardlopen',discGym:'Krachttraining',discWod:'HYROX / workouts',disciplines:'Disciplines',runs:'loopjes',goodMorning:'Goedemorgen',goodAfternoon:'Goedemiddag',goodEvening:'Goedenavond',startToday:'Start training van vandaag',openToday:'Open vandaag',nextTraining:'Volgende training',forYou:'Voor jou',trainingWeek:'Trainingsweek',recent:'Recent',view:'Bekijk',plan:'Plan in',back:'Terug',next:'Volgende',step:'Stap',
     rt:{easy:'Rustige duurloop',long:'Lange duurloop',interval:'Interval',tempo:'Tempoloop',threshold:'Threshold',fartlek:'Fartlek',recovery:'Herstelrun',custom:'Eigen'},
     fm:{amrap:'AMRAP',emom:'EMOM',fortime:'For time',rounds:'Rounds',intervals:'Intervals',circuit:'Circuit',custom:'Eigen'},
-    runType:'Looptype',format:'Format',targetPace:'Doeltempo',intervalStructure:'Intervalstructuur (optioneel)',warmup:'Warming-up',cooldown:'Cooling-down',repeats:'Herhalingen',work:'Hard',recovery:'Herstel',intervalPace:'Tempo intervallen (min/km)',duration:'Duur',rounds:'Rondes',movements:'Onderdelen',other:'anders',autoFromStructure:'automatisch uit structuur',
+    runType:'Looptype',format:'Format',targetPace:'Doeltempo',intervalStructure:'Intervalstructuur (optioneel)',warmup:'Warming-up',cooldown:'Cooling-down',repeats:'Herhalingen',work:'Hard',recovery:'Herstel',intervalPace:'Tempo intervallen (min/km)',duration:'Duur',rounds:'Rondes',movements:'Onderdelen',movOther:'anders',autoFromStructure:'automatisch uit structuur',
     avgPace:'Gem. tempo',pace:'Tempo',avgHr:'Gem. hartslag',result:'Resultaat',splits:'Splits',bestEfforts:'Beste prestaties',runTypes:'Looptypen',newRun:'Looptraining',newWod:'Workout',library:'Bibliotheek',frequency:'Frequentie',
     recWeight:'{ex}: 3× op rij alle reps gehaald. Tijd voor {kg} kg?',recRecover:'Twee zware sessies in twee dagen. Een rustige duurloop past vandaag misschien beter.',recInterval:'Al 4 weken geen intervaltraining. Toevoegen?',recGym:'Al {d} dagen geen krachttraining.',recRun:'Al {d} dagen niet gelopen.',recTaper:'Nog {d} dagen tot de race: bouw af en slaap goed.',recBw:'Twee weken niet gewogen.',recWeekDone:'Alle sessies van deze week gedaan. Sterk.',
     obGoal:'Wat wil je bereiken?',obDiscs:'Welke trainingen doe je?',obDays:'Hoe vaak wil je trainen?',obDaysHint:'dagen per week',obRec:'Ons advies',obRecHint:'Op basis van je doel en beschikbare dagen. Je kunt het schema daarna altijd aanpassen.',obSkip:'Zelf kiezen',
@@ -281,7 +283,7 @@ const I18N = {
     aiUnavailable:'AI-import niet beschikbaar',aiUnavailableTxt:'Open de app via claude.ai of de Claude-app. Plakken van een geëxporteerd schema (tekst) werkt wel.',aiDenied:'Je hebt AI-gebruik voor deze app geweigerd.',aiRate:'Even wachten; te veel verzoeken.',aiJson:'De AI gaf geen bruikbaar resultaat. Probeer opnieuw of maak de bron duidelijker.',aiError:'Er ging iets mis',
     musclesNote:'Alleen werksets uit krachttrainingen tellen mee (hoofdspier per oefening). Cardio/Hyrox-sessies staan hier niet in. Richtlijnen: RP Strength volume landmarks.',
     optional:'Optioneel',share:'Delen',shareHint:'Opslaan lukt niet? Houd de afbeelding ingedrukt.',nothingYet:'Nog niets gelogd.',
-    shareImg:'Afbeelding (WhatsApp)',sharePdf:'PDF',withWeights:'Met mijn gewichten',blank:'Lege invulvelden',shareWhat:'Wat wil je delen?',shareHow:'Hoe wil je delen?',
+    shareImg:'Afbeelding',copyLinkBtn:'Kopieer link',sharePdf:'PDF',withWeights:'Met mijn gewichten',blank:'Lege invulvelden',shareWhat:'Wat wil je delen?',shareHow:'Hoe wil je delen?',
     plan:'Planning',logged:'Gelogd',collapse:'Inklappen',expand:'Uitklappen',backSchema:'Terug naar schema',
     recap:'Weekrecap',recapNew:'Nieuw',vsPrev:'t.o.v. vorige week',km:'km',sessions:'sessies',avgRpe:'Gem. RPE',load:'Belasting',
     muscles:'Sets per spiergroep',perWeek:'per week',guide:'Richtlijn',low:'Te weinig',ok:'Goed',high:'Veel',trend4:'Laatste 4 weken',
@@ -291,7 +293,7 @@ const I18N = {
     exercisesOf:'oefeningen',
     typesNL:{hyrox:'Hyrox',run:'Hardlopen',gym:'Kracht',bike:'Duur',other:'Conditie',race:'Race'}
   },
-  en:{close:'Close',home:'Home',today:'Today',schema:'Plan',stats:'Stats',settings:'More',week:'Week',day:'Day',days:'days',
+  en:{close:'Close',customExH:'Custom exercises',pg:{weight:'Weight up',reps:'Reps up',hold:'Keep as is'},shareNativeHint:'Opens your phone\u2019s share menu with image + link (WhatsApp, AirDrop, …).',shareWa:'WhatsApp: text + link',shareFallback:'Sharing not available here; image created',discSplit:'Split strength / running / HYROX',hyroxStations:'HYROX stations trained',notTrained:'Not yet trained',home:'Home',today:'Today',schema:'Plan',stats:'Stats',settings:'More',week:'Week',day:'Day',days:'days',
     mon:'Mo',tue:'Tu',wed:'We',thu:'Th',fri:'Fr',sat:'Sa',sun:'Su',
     monL:'Monday',tueL:'Tuesday',wedL:'Wednesday',thuL:'Thursday',friL:'Friday',satL:'Saturday',sunL:'Sunday',
     rest:'Rest day',restTxt:'Nothing planned. Recovery is training too.',
@@ -318,7 +320,7 @@ const I18N = {
     discRun:'Running',discGym:'Strength',discWod:'HYROX / workouts',disciplines:'Disciplines',runs:'runs',goodMorning:'Good morning',goodAfternoon:'Good afternoon',goodEvening:'Good evening',startToday:'Start today’s training',openToday:'Open today',nextTraining:'Next training',forYou:'For you',trainingWeek:'Training week',recent:'Recent',view:'View',plan:'Plan',back:'Back',next:'Next',step:'Step',
     rt:{easy:'Easy run',long:'Long run',interval:'Interval',tempo:'Tempo',threshold:'Threshold',fartlek:'Fartlek',recovery:'Recovery',custom:'Custom'},
     fm:{amrap:'AMRAP',emom:'EMOM',fortime:'For time',rounds:'Rounds',intervals:'Intervals',circuit:'Circuit',custom:'Custom'},
-    runType:'Run type',format:'Format',targetPace:'Target pace',intervalStructure:'Interval structure (optional)',warmup:'Warm-up',cooldown:'Cool-down',repeats:'Repeats',work:'Work',recovery:'Recovery',intervalPace:'Interval pace (min/km)',duration:'Duration',rounds:'Rounds',movements:'Movements',other:'other',autoFromStructure:'auto from structure',
+    runType:'Run type',format:'Format',targetPace:'Target pace',intervalStructure:'Interval structure (optional)',warmup:'Warm-up',cooldown:'Cool-down',repeats:'Repeats',work:'Work',recovery:'Recovery',intervalPace:'Interval pace (min/km)',duration:'Duration',rounds:'Rounds',movements:'Movements',movOther:'other',autoFromStructure:'auto from structure',
     avgPace:'Avg pace',pace:'Pace',avgHr:'Avg heart rate',result:'Result',splits:'Splits',bestEfforts:'Best efforts',runTypes:'Run types',newRun:'Run session',newWod:'Workout',library:'Library',frequency:'Frequency',
     recWeight:'{ex}: all reps hit 3 times in a row. Time for {kg} kg?',recRecover:'Two hard sessions in two days. An easy run may suit today better.',recInterval:'No interval session in 4 weeks. Add one?',recGym:'{d} days since your last strength session.',recRun:'{d} days since your last run.',recTaper:'{d} days to race day: taper and sleep well.',recBw:'No weigh-in for two weeks.',recWeekDone:'All sessions this week done. Strong.',
     obGoal:'What do you want to achieve?',obDiscs:'Which training do you do?',obDays:'How often do you want to train?',obDaysHint:'days per week',obRec:'Our advice',obRecHint:'Based on your goal and available days. You can adjust the plan afterwards.',obSkip:'Choose myself',
@@ -341,7 +343,7 @@ const I18N = {
     aiUnavailable:'AI import unavailable',aiUnavailableTxt:'Open the app via claude.ai or the Claude app. Pasting an exported plan (text) still works.',aiDenied:'You declined AI use for this app.',aiRate:'Please wait; too many requests.',aiJson:'The AI returned nothing usable. Try again or clarify the source.',aiError:'Something went wrong',
     musclesNote:'Only working sets from strength workouts count (primary muscle per exercise). Cardio/Hyrox sessions are not included. Guidelines: RP Strength volume landmarks.',
     optional:'Optional',share:'Share',shareHint:'Saving not working? Press and hold the image.',nothingYet:'Nothing logged.',
-    shareImg:'Image (WhatsApp)',sharePdf:'PDF',withWeights:'With my weights',blank:'Blank fields',shareWhat:'What to share?',shareHow:'How to share?',
+    shareImg:'Image',copyLinkBtn:'Copy link',sharePdf:'PDF',withWeights:'With my weights',blank:'Blank fields',shareWhat:'What to share?',shareHow:'How to share?',
     plan:'Plan',logged:'Logged',collapse:'Collapse',expand:'Expand',backSchema:'Back to plan',
     recap:'Weekly recap',recapNew:'New',vsPrev:'vs previous week',km:'km',sessions:'sessions',avgRpe:'Avg RPE',load:'Load',
     muscles:'Sets per muscle group',perWeek:'per week',guide:'Guideline',low:'Low',ok:'Good',high:'High',trend4:'Last 4 weeks',
@@ -640,6 +642,7 @@ const ICONS={
  back:'<svg class="icon" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>',
  swap:'<svg class="icon" viewBox="0 0 24 24"><path d="M4 7h13l-3-3M20 17H7l3 3"/></svg>',
  up:'<svg class="icon" style="width:14px;height:14px" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></svg>',
+ wa:'<svg class="icon" viewBox="0 0 24 24" style="fill:currentColor;stroke:none"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1-.2-.1-1-.4-2-1.2-.7-.7-1.2-1.5-1.4-1.7-.1-.2 0-.4.1-.5l.4-.4.2-.4v-.5c0-.1-.6-1.4-.8-1.9-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.6 1.1 2.8c.1.2 1.9 2.9 4.6 4 .6.3 1.1.4 1.5.6.6.2 1.2.2 1.6.1.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2l-.5-.3z"/></svg>',
  share:'<svg class="icon" viewBox="0 0 24 24"><path d="M12 3v12M7 8l5-5 5 5M5 14v5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5"/></svg>',
  chev:'<svg class="icon" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>',
  plus:'<svg class="icon" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>',
@@ -787,7 +790,8 @@ function nextLine(sess,e){
   const ls=loggedSets(e); if(!ls.length) return '';
   const base={sets:e.baseSets,reps:e.baseReps,w:e.ex===e.orig?e.baseW:null}; const inc=exOf(e.ex).inc; const n=nextFrom(e,base,inc);
   const w=inc===0?'BW':`${num(n.w,2)} kg`;
-  return `${t('nextTime')}: <b>${n.sets} × ${n.reps} @ ${w}</b> <span style="color:${n.why==='repeat'?'var(--fg3)':'var(--accent)'}">${n.why==='repeat'?'':'↑ '}${t('suggest.'+n.why)}</span>`;
+  const cur=e.progNext||''; const chip=(k,l)=>`<button class="pchip ${cur===k?'on':''}" data-pg="${k}">${l}</button>`;
+  return `<div>${t('nextTime')}: <b>${n.sets} × ${n.reps} @ ${w}</b> <span style="color:${n.why==='repeat'?'var(--fg3)':'var(--accent)'}">${n.why==='repeat'?'':'↑ '}${t('suggest.'+n.why)}</span></div>${sess.done?'':`<div class="row" style="gap:6px;margin-top:6px;flex-wrap:wrap">${inc===0?'':chip('weight','↑ '+t('pg.weight'))}${chip('reps','↑ '+t('pg.reps'))}${chip('hold',t('pg.hold'))}</div>`}`;
 }
 function exCardHtml(sess,e,i){
   const ex=exOf(e.ex); const prev=lastLog(e.ex,null,sess.date);
@@ -807,9 +811,10 @@ function exCardHtml(sess,e,i){
 function bindExCards(root,id){
   const sess=S.sessions[id];
   root.querySelectorAll(`.ex[data-sid="${id}"]`).forEach(card=>{
-    const i=+card.dataset.i; const e=sess.exercises[i]; const upd=()=>{card.querySelector('[data-next]').innerHTML=nextLine(sess,e)};
+    const i=+card.dataset.i; const e=sess.exercises[i]; const upd=()=>{card.querySelector('[data-next]').innerHTML=nextLine(sess,e);bindPg()};
+    const bindPg=()=>card.querySelectorAll('[data-pg]').forEach(b=>b.onclick=()=>{e.progNext=e.progNext===b.dataset.pg?null:b.dataset.pg;persist('sessions',id,sess,300);upd()});bindPg();
     card.querySelectorAll('input[data-f]').forEach(inp=>inp.oninput=()=>{const j=+inp.dataset.j;e.sets[j][inp.dataset.f]=inp.value===''?null:+inp.value;persist('sessions',id,sess,700);upd()});
-    const tick=(j,on)=>{const s=e.sets[j];if(on&&!s.ok){if(s.w==null)s.w=e.tW??(j>0?e.sets[j-1].w:null);if(s.r==null)s.r=e.tReps;const wi=card.querySelector(`input[data-f="w"][data-j="${j}"]`),ri=card.querySelector(`input[data-f="r"][data-j="${j}"]`);if(wi)wi.value=s.w??'';if(ri)ri.value=s.r??''}s.ok=on;const b=card.querySelector(`[data-ok="${j}"]`);if(b)b.classList.toggle('on',on)};
+    const tick=(j,on)=>{const s=e.sets[j];if(on&&!s.ok){if(s.w==null)s.w=(j>0&&e.sets[j-1].w!=null?e.sets[j-1].w:null)??e.tW??null;if(s.r==null||s.r===''){const tr=parseInt(e.tReps??e.baseReps??(j>0?e.sets[j-1].r:null));s.r=isNaN(tr)?null:tr}const wi=card.querySelector(`input[data-f="w"][data-j="${j}"]`),ri=card.querySelector(`input[data-f="r"][data-j="${j}"]`);if(wi)wi.value=s.w??'';if(ri)ri.value=s.r??''}s.ok=on;const b=card.querySelector(`[data-ok="${j}"]`);if(b)b.classList.toggle('on',on)};
     const afterTick=()=>{persist('sessions',id,sess,300);upd();const all=e.sets.every(x=>x.ok);card.classList.toggle('complete',all);const ea=card.querySelector('[data-exall]');if(ea)ea.classList.toggle('on',all)};
     card.querySelectorAll('[data-ok]').forEach(b=>b.onclick=()=>{if(sess.done)return;const j=+b.dataset.ok;const was=e.sets[j].ok;tick(j,!was);afterTick();const s=e.sets[j];
       if(s.ok){const b2=bestBefore(e.ex,sess.date);if((b2.bw&&s.w>b2.bw)||(b2.be&&e1rm(s.w||0,s.r)>b2.be+0.5))toast(`${t('newPr')} · ${exOf(e.ex).n}`)}});
@@ -908,15 +913,26 @@ function shareData(k,what){
   const cardio=items.filter(s=>s.kind==='cardio').map(s=>({...s,st:sessState(k,s.idx)}));
   return {k,d,pl,sessions,cardio};
 }
+function waUrl(text){return 'https://wa.me/?text='+encodeURIComponent(text)}
 function openShare(k,what){
   const sd=shareData(k,what); const planned=sd.sessions.some(s=>!s.done); let mode=planned?'weights':'logged';
+  let pre={url:null,file:null,txt:shareText(sd)}; const canFiles=!!(navigator.share&&navigator.canShare);
+  const prep=()=>{const c=drawShare(sd,mode);c.toBlob(bl=>{pre.file=new File([bl],`workout-${sd.k}.png`,{type:'image/png'})},'image/png');shareLinkFor(sd).then(u=>{pre.url=u;const wa=$('#sheet [data-wa]');if(wa)wa.href=waUrl(pre.txt+'\n'+u)})};
   openSheet(`<div class="eyebrow">${t('share')} · ${dateLabel(sd.d)}</div>
     ${planned?`<div class="field"><label>${t('shareWhat')}</label><div class="seg"><button data-m="weights" class="on">${t('withWeights')}</button><button data-m="blank">${t('blank')}</button></div></div>`:''}
-    <div class="field"><label>${t('shareHow')}</label>${navigator.share?`<button class="btn primary block" data-native>${ICONS.share} ${t('shareNative')} (WhatsApp…)</button>`:''}<div class="row"><button class="btn grow" data-img>${t('shareImg')}</button><button class="btn grow" data-pdf>${t('sharePdf')}</button></div><div class="row"><button class="btn grow" data-link>${t('shareLink')}</button><button class="btn grow" data-garmin>${t('garminCopy')}</button></div>${location.hostname.endsWith('github.io')?`<button class="btn block" data-icu>${t('icuSend')}</button>`:''}</div>
+    <div class="field"><label>${t('shareHow')}</label>
+      ${navigator.share?`<button class="btn primary block" data-native>${ICONS.share} ${t('shareNative')}</button><div class="dim" style="font-size:12px;margin-top:-4px">${t('shareNativeHint')}</div>`:''}
+      <a class="btn block wa" data-wa href="${waUrl(pre.txt)}" target="_blank" rel="noopener">${ICONS.wa} ${t('shareWa')}</a>
+      <div class="row"><button class="btn grow" data-img>${t('shareImg')}</button><button class="btn grow" data-pdf>${t('sharePdf')}</button></div>
+      <div class="row"><button class="btn grow" data-link>${t("copyLinkBtn")}</button><button class="btn grow" data-garmin>${t('garminCopy')}</button></div>
+      ${location.hostname.endsWith('github.io')?`<button class="btn block" data-icu>${t('icuSend')}</button>`:''}</div>
     <div id="shOut" class="stack"></div>`,sh=>{
-    sh.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{mode=b.dataset.m;sh.querySelectorAll('[data-m]').forEach(x=>x.classList.toggle('on',x===b))});
-    const nat=sh.querySelector('[data-native]'); if(nat) nat.onclick=async()=>{const c=drawShare(sd,mode);const url=await shareLinkFor(sd);c.toBlob(async bl=>{const ok=await nativeShare({title:'Workout',text:shareText(sd),url,blob:bl,filename:`workout-${sd.k}.png`});if(!ok){sh.querySelector('[data-img]').click()}},'image/png')};
-    sh.querySelector('[data-link]').onclick=async()=>{const url=await shareLinkFor(sd);const ok=await nativeShare({title:'Workout',text:shareText(sd),url});if(!ok)copyText(url,t('copyLink'))};
+    prep();
+    sh.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{mode=b.dataset.m;sh.querySelectorAll('[data-m]').forEach(x=>x.classList.toggle('on',x===b));sh.querySelector('#shOut').innerHTML='';prep()});
+    const nat=sh.querySelector('[data-native]'); if(nat) nat.onclick=()=>{ // synchronous inside the tap: iOS drops the share otherwise
+      const data={title:'Workout',text:pre.url?pre.txt+'\n'+pre.url:pre.txt}; if(pre.file&&canFiles&&navigator.canShare({files:[pre.file]}))data.files=[pre.file];
+      navigator.share(data).catch(e=>{if(e?.name!=='AbortError'){sh.querySelector('[data-img]').click();toast(t('shareFallback'))}})};
+    sh.querySelector('[data-link]').onclick=async()=>{const url=pre.url||await shareLinkFor(sd);copyText(url,t('copyLink'))};
     sh.querySelector('[data-garmin]').onclick=()=>{copyText(garminText(sd));toast(t('garminHint'))};
     const icu=sh.querySelector('[data-icu]'); if(icu) icu.onclick=()=>{const first=sd.cardio[0]||(sd.sessions[0]?{kind:'gym',tpl:sd.sessions[0].tpl,id:sd.sessions[0].id}:null);if(first)sendToIntervals(sd.k,first)};
     sh.querySelector('[data-img]').onclick=()=>{const c=drawShare(sd,mode);sh.querySelector('#shOut').innerHTML=`<img src="${c.toDataURL('image/png')}" alt="" style="width:100%;border-radius:14px;border:1px solid var(--line)"><div class="dim" style="font-size:13px;text-align:center">${t('shareHint')}</div>`;if(S.dl)c.toBlob(async bl=>{try{await S.dl.save({filename:`workout-${sd.k}.png`,data:bl})}catch(e){}},'image/png')};
@@ -1050,6 +1066,13 @@ function weekBuckets(d){ // group by Monday within period
   return Object.values(b).sort((a,b)=>a.mon<b.mon?-1:1);
 }
 function periodWeeks(d){if(!d.from){const all=[...d.gym.map(x=>x.date),...d.cardio.map(x=>x.date)];if(!all.length)return 1;const first=all.sort()[0];return Math.max(1,Math.ceil(((parseKey(d.to)-parseKey(first))/864e5+1)/7))}return Math.max(1,Math.round(((parseKey(d.to)-parseKey(d.from))/864e5+1)/7))}
+const MOV_PAT=[['SkiErg',/ski ?erg/i],['Sled Push',/sled ?push|slee ?duw/i],['Sled Pull',/sled ?pull|slee ?trek/i],['Burpee Broad Jumps',/burpee ?broad|bbj/i],['Row',/\brow(ing|er)?\b|roei/i],['Farmers Carry',/farmer/i],['Sandbag Lunges',/sandbag|lunge/i],['Wall Balls',/wall ?ball/i],['Burpees',/\bburpees?\b(?! ?broad)/i],['KB Swings',/kettlebell|kb ?swing/i],['Box Jumps',/box ?jump/i],['Thrusters',/thruster/i],['Airbike',/air ?bike|assault/i],['Bike Erg',/bike ?erg/i],['Run',/\brun\b|\bloop|hardlo|\d\s?(k|km|m)\b/i]];
+function movCounts(list){const o={};list.forEach(c=>{const names=new Set();if(c.mov&&c.mov.length)c.mov.forEach(m=>{const hit=MOV_PAT.find(([n,re])=>re.test(m.n));names.add(hit?hit[0]:m.n)});else{const txt=(c.title||'')+'\n'+(c.lines||'');MOV_PAT.forEach(([n,re])=>{if(re.test(txt))names.add(n)})}names.forEach(n=>o[n]=(o[n]||0)+1)});return o}
+function discSplit(d){const o={gym:{n:d.gym.length,min:d.gym.reduce((a,g)=>a+(g.minutes||gymMinutes(g)),0)},run:{n:0,min:0},wod:{n:0,min:0}};d.cardio.forEach(c=>{const k=c.disc==='run'?'run':'wod';o[k].n++;o[k].min+=c.time||c.minutes||0});return o}
+function discSplitHtml(d){const sp=discSplit(d);const tot=sp.gym.n+sp.run.n+sp.wod.n;if(!tot)return '';const col={gym:'var(--purple)',run:'var(--blue)',wod:'var(--accent)'};const lab={gym:t('discGym'),run:t('discRun'),wod:t('discWod')};
+  return `<div class="card"><div class="eyebrow" style="margin-bottom:8px">${t('discSplit')}</div><div style="display:flex;height:12px;border-radius:6px;overflow:hidden;gap:2px">${['gym','run','wod'].map(k=>sp[k].n?`<div style="flex:${sp[k].n};background:${col[k]}"></div>`:'').join('')}</div><div class="stack" style="gap:4px;margin-top:8px">${['gym','run','wod'].map(k=>`<div class="row between" style="font-size:13px"><span class="row" style="gap:8px"><span style="width:10px;height:10px;border-radius:3px;background:${col[k]}"></span>${lab[k]}</span><span><b>${sp[k].n}</b> <span class="dim">(${Math.round(100*sp[k].n/tot)}%) · ${num(sp[k].min/60,1)} u</span></span></div>`).join('')}</div></div>`}
+function movCountsHtml(list,title){const mv=movCounts(list.filter(c=>c.disc==='wod'||c.type==='hyrox'||c.type==='race'));const ks=Object.entries(mv).sort((a,b)=>b[1]-a[1]);if(!ks.length)return '';const max=ks[0][1];const HX=['SkiErg','Sled Push','Sled Pull','Burpee Broad Jumps','Row','Farmers Carry','Sandbag Lunges','Wall Balls'];const missing=HX.filter(n=>!mv[n]);
+  return `<div class="card"><div class="eyebrow" style="margin-bottom:8px">${title||t('hyroxStations')}</div><div class="stack" style="gap:6px">${ks.map(([n,c])=>`<div class="row" style="gap:8px;font-size:13px"><span style="width:118px;flex:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(n)}</span><div style="flex:1;height:8px;border-radius:4px;background:var(--surface2)"><div style="width:${Math.round(100*c/max)}%;height:100%;border-radius:4px;background:${HX.includes(n)?'var(--accent)':'var(--fg3)'}"></div></div><b style="width:22px;text-align:right">${c}</b></div>`).join('')}</div>${missing.length?`<div class="dim" style="font-size:12px;margin-top:8px">${t('notTrained')}: ${missing.join(', ')}</div>`:''}</div>`}
 function statsOverview(){
   const d=statsData(),a=aggregate(d); const prev=S.period!=='all'?aggregate(statsData(1)):null;
   const tile=(k,v,unit,dl)=>`<div class="tile"><div class="k">${k}</div><div class="v">${v}<small>${unit||''}</small></div>${dl||''}</div>`;
@@ -1059,6 +1082,7 @@ function statsOverview(){
     ${tile(t('load'),num(a.load,0),'',prev&&delta(a.load,prev.load))}${tile(t('avgRpe'),a.rpeN?num(a.rpeSum/a.rpeN,1):'–','',prev&&prev.rpeN&&a.rpeN?delta(a.rpeSum/a.rpeN,prev.rpeSum/prev.rpeN,v=>num(v,1)):'')}
     ${tile(t('sets'),a.sets,'',prev&&delta(a.sets,prev.sets))}${tile(t('prs'),a.prs,'',prev&&delta(a.prs,prev.prs))}</div>${prev?`<div class="dim" style="font-size:12px">${t('vsPrevPeriod')}</div>`:''}`;
   if(S.period==='week'&&prog()) h+=statsRecap();
+  h+=discSplitHtml(d)+movCountsHtml(d.cardio);
   if(prog()) h+=overviewTiles();
   return h;
 }
@@ -1141,7 +1165,7 @@ function overviewTiles(){
 }
 function mgBar(k,n){const [lo,hi]=MG_RANGE[k];const st=n<lo?'low':n>hi?'high':'ok';const col={low:'var(--warn)',ok:'var(--accent)',high:'var(--danger)'}[st];const pct=Math.min(100,n/(hi*1.15)*100),loP=lo/(hi*1.15)*100,hiP=hi/(hi*1.15)*100;
   return `<div class="stack" style="gap:4px;padding:6px 0"><div class="row between"><b style="font-size:14px">${t('mg.'+k)}</b><span style="font-size:13px"><b>${n}</b> <span class="dim">${t('setsWeek')}</span> · <span style="color:${col};font-weight:700">${t(st)}</span></span></div><div class="bar" style="position:relative;height:8px"><i style="width:${pct}%;background:${col}"></i><span style="position:absolute;left:${loP}%;top:-2px;width:2px;height:12px;background:var(--fg2)"></span><span style="position:absolute;left:${hiP}%;top:-2px;width:2px;height:12px;background:var(--fg2)"></span></div><div class="dim" style="font-size:11px">${t('guide')}: ${lo}–${hi} ${t('setsWeek')}</div></div>`}
-function barChart(vals,labels){const W=340,H=140,px=6,py=18;const n=vals.length;const max=Math.max(...vals,1);const bw=(W-2*px)/n;return `<svg class="chart" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img">${vals.map((v,i)=>{const h=(H-py-20)*v/max;const x=px+i*bw+bw*0.15;const y=H-20-h;return `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${(bw*0.7).toFixed(1)}" height="${h.toFixed(1)}" rx="4" fill="${i===n-1?'var(--accent)':'var(--surface2)'}"/><text x="${(x+bw*0.35).toFixed(1)}" y="${(y-4).toFixed(1)}" text-anchor="middle" font-size="10" fill="var(--fg2)" font-family="inherit">${v?Math.round(v):''}</text><text x="${(x+bw*0.35).toFixed(1)}" y="${H-6}" text-anchor="middle" font-size="10" fill="var(--fg3)" font-family="inherit">${labels[i]}</text>`}).join('')}</svg>`}
+function barChart(vals,labels){const W=340,H=140,px=6,py=18;const n=vals.length;const max=Math.max(...vals,1);const bw=(W-2*px)/n;return `<svg class="chart" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img">${vals.map((v,i)=>{const h=(H-py-20)*v/max;const x=px+i*bw+bw*0.15;const y=H-20-h;return `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${(bw*0.7).toFixed(1)}" height="${h.toFixed(1)}" rx="4" fill="${i===n-1?'var(--accent)':'rgba(22,227,110,.35)'}"/><text x="${(x+bw*0.35).toFixed(1)}" y="${(y-4).toFixed(1)}" text-anchor="middle" font-size="10" fill="var(--fg2)" font-family="inherit">${v?Math.round(v):''}</text><text x="${(x+bw*0.35).toFixed(1)}" y="${H-6}" text-anchor="middle" font-size="10" fill="var(--fg3)" font-family="inherit">${labels[i]}</text>`}).join('')}</svg>`}
 function lineChart(vals,labels){const W=340,H=150,px=28,py=14;const n=vals.length;if(n<2)return `<div class="dim" style="font-size:12px;padding:8px 0">${n===1?`${num(vals[0],0)} kg`:t('noData')}</div>`;const min=Math.min(...vals)*0.95,max=Math.max(...vals)*1.03||1;const x=i=>px+(W-px-10)*(i/(n-1)),y=v=>py+(H-py*2)*(1-(v-min)/(max-min||1));const pts=vals.map((v,i)=>`${x(i).toFixed(1)},${y(v).toFixed(1)}`);const area=`M${pts[0]} L${pts.join(' L')} L${x(n-1).toFixed(1)},${H-py} L${x(0).toFixed(1)},${H-py} Z`;
   return `<svg class="chart" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img">${[min,(min+max)/2,max].map(v=>`<line x1="${px}" x2="${W-10}" y1="${y(v).toFixed(1)}" y2="${y(v).toFixed(1)}" stroke="var(--line)"/><text x="${px-4}" y="${(y(v)+4).toFixed(1)}" text-anchor="end" font-size="10" fill="var(--fg3)" font-family="inherit">${Math.round(v)}</text>`).join('')}<path d="${area}" fill="rgba(22,227,110,.12)"/><polyline points="${pts.join(' ')}" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linejoin="round"/>${vals.map((v,i)=>`<circle cx="${x(i).toFixed(1)}" cy="${y(v).toFixed(1)}" r="${i===n-1?4.5:3}" fill="${i===n-1?'var(--accent)':'var(--bg)'}" stroke="var(--accent)" stroke-width="2"/>`).join('')}<text x="${x(0).toFixed(1)}" y="${H-1}" font-size="10" fill="var(--fg3)" font-family="inherit">${dShort(labels[0])}</text><text x="${x(n-1).toFixed(1)}" y="${H-1}" font-size="10" fill="var(--fg3)" text-anchor="end" font-family="inherit">${dShort(labels[n-1])}</text></svg>`}
 function shareRecap(w){
@@ -1336,7 +1360,7 @@ function renderSettings(){
     ${progs.map(x=>`<div class="stack" style="gap:6px;padding:8px 0;border-top:1px solid var(--line)"><div class="row between"><div><b>${esc(x.name)}</b>${x.id===st.activeProgram?` <span class="chip hyrox" style="font-size:10px;padding:2px 6px">${t('active')}</span>`:''}<div class="dim" style="font-size:12px">${dShort(x.start)} · ${x.weeks.length} ${t('weeks').toLowerCase()} · ${Object.keys(x.templates).length} ${t('workouts').toLowerCase()}</div></div></div>
       <div class="row" style="flex-wrap:wrap;gap:6px">${x.id!==st.activeProgram?`<button class="btn sm" data-activate="${x.id}">${t('activate')}</button>`:''}<button class="btn sm" data-editp="${x.id}">${ICONS.edit} ${t('edit')}</button><button class="btn sm" data-sharep="${x.id}">${ICONS.share} ${t('share')}</button><button class="btn sm ghost danger" data-delp="${x.id}">${t('remove')}</button></div></div>`).join('')||`<div class="muted" style="font-size:13px">${t('noProgramTxt')}</div>`}</div>`;
   if(p) h+=`<div class="card stack" style="gap:8px"><div class="row between"><div class="eyebrow">${t('workouts')} · ${esc(p.name)}</div><button class="btn sm" data-newtpl>${ICONS.plus}</button></div>${Object.values(p.templates).map(x=>`<div class="row between" style="font-size:14px"><span class="grow" style="min-width:0"><b>${esc(x.name)}</b><div class="dim" style="font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${x.ex.map(e=>`${exOf(e[0]).n} ${e[1]}×${e[2]}${e[3]?' @'+num(e[3],1):''}`).join(' · ')}</div></span><span class="row" style="gap:2px"><button class="iconbtn" style="width:32px;height:32px" data-edittpl="${x.id}">${ICONS.edit}</button><button class="iconbtn" style="width:32px;height:32px" data-sharetpl="${x.id}">${ICONS.share}</button></span></div>`).join('')||`<div class="muted" style="font-size:13px">${t('noTemplates')}</div>`}</div>`;
-  h+=`<div class="card stack" style="gap:8px"><div class="row between"><div class="eyebrow">${t('addEx')} (${cx.length})</div><button class="btn sm" data-act="addEx">${ICONS.plus}</button></div>${cx.map(x=>`<div class="row between" style="font-size:14px"><span><b>${esc(x.n)}</b> <span class="dim">· ${t('mg.'+x.m)} · ${t('eq.'+x.e)}</span></span><button class="btn sm ghost danger" data-delex="${x.id}">${t('remove')}</button></div>`).join('')}</div>`;
+  h+=`<div class="card stack" style="gap:8px"><div class="row between"><div class="eyebrow">${t('customExH')} (${cx.length})</div><button class="btn sm" data-act="addEx">${ICONS.plus}</button></div>${cx.map(x=>`<div class="row between" style="font-size:14px"><span><b>${esc(x.n)}</b> <span class="dim">· ${t('mg.'+x.m)} · ${t('eq.'+x.e)}</span></span><button class="btn sm ghost danger" data-delex="${x.id}">${t('remove')}</button></div>`).join('')}</div>`;
   $('#main').innerHTML=seg+h; const main=$('#main'); const saveSt=(patch,delay=0)=>persist('settings',S.pid,Object.assign(JSON.parse(JSON.stringify(settings())),patch),delay);
   main.querySelectorAll('[data-mt]').forEach(b=>b.onclick=()=>{S.moreTab=b.dataset.mt;render()});
   main.querySelector('[data-act="profiles"]').onclick=openProfiles; main.querySelector('[data-act="newProgram"]').onclick=openNewBlock;
@@ -1426,7 +1450,7 @@ function openCardioEditor(cur,onSave,ctxLabel){
       <div class="card stack" style="gap:6px;padding:10px 12px"><div class="eyebrow">${t('movements')}</div>
         ${s.mov.map((m,i)=>`<div class="row" style="gap:6px"><input class="in" data-mq="${i}" type="number" inputmode="decimal" value="${m.qty??''}" placeholder="25" style="flex:.7;min-height:40px"><select class="in" data-mu="${i}" style="flex:.8;min-height:40px">${MOV_UNITS.map(u=>`<option value="${u}" ${m.unit===u?'selected':''}>${u}</option>`).join('')}</select><input class="in" data-mn="${i}" value="${esc(m.n)}" list="movlist" placeholder="Wall Balls" style="flex:1.8;min-height:40px"><input class="in" data-mk="${i}" type="number" inputmode="decimal" value="${m.kg??''}" placeholder="kg" style="flex:.6;min-height:40px"><button class="iconbtn danger" style="width:32px;height:40px" data-mrm="${i}">${ICONS.trash}</button></div>`).join('')}
         <datalist id="movlist">${HYROX_MOV.map(m=>`<option value="${m}">`).join('')}</datalist>
-        <div class="filters">${HYROX_MOV.slice(0,9).map(m=>`<button data-madd="${esc(m)}">+ ${esc(m)}</button>`).join('')}<button data-madd="">+ ${t('other')}</button></div></div>
+        <div class="filters">${HYROX_MOV.slice(0,9).map(m=>`<button data-madd="${esc(m)}">+ ${esc(m)}</button>`).join('')}<button data-madd="">+ ${t('movOther')}</button></div></div>
       <div class="grid2"><div class="field"><label>${t('dist')} (km)</label><input class="in" id="ceKm" type="number" step="0.1" inputmode="decimal" value="${s.km??''}"></div><div class="field"><label>${t('zone')}</label><input class="in" id="ceZone" value="${esc(s.zone||'')}" placeholder="Z4"></div></div>`}
     <div class="field"><label>${t('title')}</label><input class="in" id="ceTitle" value="${esc(s.title||'')}" placeholder="${s.disc==='run'?'Intervaltraining 8 × 400 m':'HYROX Conditioning #1'}"></div>
     <div class="field"><label>${t('description')} <span class="dim" style="text-transform:none;letter-spacing:0">${auto?'('+t('autoFromStructure')+')':''}</span></label><textarea class="in" id="ceLines" style="min-height:110px">${esc(auto?genLines(s):(s.lines||''))}</textarea></div>
@@ -1546,8 +1570,7 @@ function renderHub(){
   } else if(disc==='wod'){
     const w=d.cardio.filter(c=>c.disc==='wod').sort((a,b)=>a.date<b.date?-1:1); const min=w.reduce((a,c)=>a+(c.time||c.minutes),0); const rp=w.filter(c=>c.rpe);
     h+=`<div class="tiles">${tile(t('workouts'),w.length)}${tile(t('time'),num(min/60,1),'u')}${tile(t('avgRpe'),rp.length?num(rp.reduce((a,c)=>a+c.rpe,0)/rp.length,1):'–')}${tile(t('load'),num(w.reduce((a,c)=>a+c.minutes*c.rpe,0),0))}</div>`;
-    const mv={}; w.forEach(c=>(c.mov||[]).forEach(m=>{mv[m.n]=(mv[m.n]||0)+1})); const mvk=Object.entries(mv).sort((a,b)=>b[1]-a[1]).slice(0,10);
-    if(mvk.length) h+=`<div class="card"><div class="eyebrow" style="margin-bottom:6px">${t('movements')}</div><div class="row" style="flex-wrap:wrap;gap:6px">${mvk.map(([n,c])=>`<span class="chip hyrox">${esc(n)} · ${c}</span>`).join('')}</div></div>`;
+    h+=movCountsHtml(d.cardio)+discSplitHtml(d);
     const bk=weekBuckets({gym:[],cardio:w}); if(bk.length) h+=`<div class="card"><div class="eyebrow" style="margin-bottom:6px">${t('load')} ${t('perWeek')}</div>${barChart(bk.slice(-16).map(b=>b.load),bk.slice(-16).map(b=>dShort(b.mon)))}</div>`;
     h+=`<div class="row"><button class="btn primary grow" data-addc="wod">${ICONS.plus} ${t('newWod')}</button><button class="btn grow" data-lib="wod">${t('library')}</button></div>`;
     h+=recentList(w.slice().reverse().slice(0,10).map(c=>({date:c.date,title:c.title||t(c.type),sub:[c.result?c.result:'',c.rounds?c.rounds+' '+t('rounds').toLowerCase():'',(c.time||c.minutes)+' min',c.rpe?'RPE '+c.rpe:''].filter(Boolean).join(' · ')})));
