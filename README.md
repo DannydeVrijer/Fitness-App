@@ -16,7 +16,7 @@ Mobile-first trainingslogboek (single-file web app) voor een 10-weken Hyrox-prog
 - Home-tab: begroeting, training van vandaag, volgende training, aanbevelingen (regelgebaseerd), weekvoortgang en drie discipline-hubs (🏃 Hardlopen, 🏋️ Kracht, 🔥 HYROX/workouts) met eigen statistieken per periode.
 - Looptrainingen: looptype (duurloop, interval, tempo, threshold, fartlek, herstel), doeltempo, intervalstructuur (warming-up, herhalingen, hard/herstel, tempo); loggen van afstand, tijd, hartslag; tempo wordt berekend.
 - HYROX/workouts: builder met format (AMRAP, EMOM, For time, Rounds, Intervals, Circuit), onderdelen uit de Hyrox-bibliotheek; loggen van resultaat, rondes, splits.
-- Onboarding-wizard (doel → disciplines → dagen per week → aanbevolen schema); ook later te starten via Meer → Advies-wizard. Extra templates: Upper/Lower, Hardlopen 3×/week, Hybride.
+- Extra templates: Upper/Lower, Hardlopen 3×/week, Hybride.
 - Garmin: "Kopieer voor Garmin" en experimenteel versturen naar Intervals.icu (Athlete ID + API key bij Instellingen; alleen in de openbare versie).
 
 ## Functies (v4)
